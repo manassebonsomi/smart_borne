@@ -1,10 +1,12 @@
 from flask import Blueprint, jsonify
 from controllers.dashboard_controller import DashboardController
+from flask_jwt_extended import jwt_required
 
 dashboard_routes = Blueprint("dashboard_routes", __name__)
 
 
 @dashboard_routes.route("/dashboard/statistics", methods=["GET"])
+@jwt_required()
 def statistics():
     return jsonify({
         "success": True,
@@ -16,6 +18,7 @@ def statistics():
     "/dashboard/recommendations",
     methods=["GET"]
 )
+@jwt_required()
 def recommendations():
     return jsonify({
         "success": True,
@@ -27,6 +30,7 @@ def recommendations():
     "/dashboard/errors",
     methods=["GET"]
 )
+@jwt_required()
 def errors():
     return jsonify({
         "success": True,
@@ -38,6 +42,7 @@ def errors():
     "/dashboard/audit",
     methods=["GET"]
 )
+@jwt_required()
 def audit():
     return jsonify({
 
@@ -50,6 +55,7 @@ def audit():
     "/dashboard/campaigns",
     methods=["GET"]
 )
+@jwt_required()
 def campaigns():
     return jsonify({
         "success": True,
@@ -61,6 +67,7 @@ def campaigns():
     "/dashboard/questions",
     methods=["GET"]
 )
+@jwt_required()
 def questions():
     return jsonify({
         "success": True,

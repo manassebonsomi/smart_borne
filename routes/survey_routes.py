@@ -4,24 +4,6 @@ from controllers.survey_controller import SurveyController
 survey_routes = Blueprint("survey_routes", __name__)
 
 
-@survey_routes.route("/questions", methods=["GET"])
-def get_questions():
-
-    questions = SurveyController.get_questions()
-
-    return jsonify({
-        "status": "success",
-        "data": [
-            {
-                "id": q.id_question,
-                "question": q.texte_question,
-                "ordre": q.ordre_question
-            }
-            for q in questions
-        ]
-    }), 200
-
-
 @survey_routes.route("/questions/<int:id_question>", methods=["GET"])
 def get_question(id_question):
 
@@ -82,11 +64,12 @@ def start_survey():
 # GET /api/survey/question/1
 # ==========================================
 
+
 @survey_routes.route(
     "/survey/question/<int:ordre>",
     methods=["GET"]
 )
-def get_question(ordre):
+def get_question_by_order(ordre):
     try:
 
         question = \

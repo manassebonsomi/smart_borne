@@ -1,9 +1,8 @@
 from flask import Blueprint
 from flask import request
 from flask import jsonify
-
-from controllers.command_controller \
-    import CommandController
+from flask_jwt_extended import jwt_required
+from controllers.command_controller import CommandController
 
 command_bp = Blueprint(
     "command",
@@ -14,13 +13,12 @@ command_bp = Blueprint(
     "/commands/execute",
     methods=["POST"]
 )
+@jwt_required()
 def execute_command():
 
     data = request.json
 
-    result = \
-        CommandController.execute(
-
+    result = CommandController.execute(
             data["command"]
         )
 

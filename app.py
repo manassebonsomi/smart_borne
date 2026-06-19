@@ -2,6 +2,8 @@ from flask import Flask
 from flask_cors import CORS
 from models import *
 from config.database import db
+from flask_jwt_extended import JWTManager
+from config.security import SecurityConfig
 
 from routes.auth_routes import auth_routes
 from routes.command_routes import command_bp
@@ -16,6 +18,10 @@ from routes.erreur_routes import erreur_bp
 from routes.report_routes import report_bp
 
 app = Flask(__name__)
+app.config["JWT_SECRET_KEY"] = SecurityConfig.JWT_SECRET_KEY
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = SecurityConfig.JWT_ACCESS_TOKEN_EXPIRES
+
+jwt = JWTManager(app)
 
 app.register_blueprint(auth_routes, url_prefix="/api")
 app.register_blueprint(command_bp, url_prefix="/api")
