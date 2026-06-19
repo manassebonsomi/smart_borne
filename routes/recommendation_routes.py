@@ -14,35 +14,132 @@ recommandation_bp = Blueprint(
     "/recommandation/<int:id_session>",
     methods=["GET"]
 )
-def get_recommandation(id_session):
+def get_recommandation(
+        id_session
+):
 
-    recommandation = \
-        RecommendationController \
-        .get_by_session(
-            id_session
-        )
+    try:
 
-    if not recommandation:
+        recommandation = \
+            RecommendationController \
+            .get_by_session(
+
+                id_session
+            )
+
+        if not recommandation:
+
+            return jsonify({
+
+                "success":
+                    False,
+
+                "message":
+                    "Recommandation introuvable"
+
+            }), 404
 
         return jsonify({
 
-            "success": False,
+            "success":
+                True,
+
+            "data": {
+
+                "id_recommandation":
+                    recommandation.id_recommandation,
+
+                "score":
+                    recommandation.score,
+
+                "profil_detecte":
+                    recommandation.profil_detecte,
+
+                "commentaire":
+                    recommandation.commentaire,
+
+                "id_session":
+                    recommandation.id_session,
+
+                "id_parcours":
+                    recommandation.id_parcours
+            }
+
+        }), 200
+
+    except Exception as e:
+
+        return jsonify({
+
+            "success":
+                False,
 
             "message":
-            "Aucune recommandation"
-        })
+                str(e)
 
-    return jsonify({
+        }), 400
 
-        "success": True,
 
-        "data": {
+# ==========================================
+# LISTE COMPLETE
+# GET /api/recommandations
+# ==========================================
 
-            "score":
-            recommandation.score,
+@recommandation_bp.route(
 
-            "profil":
-            recommandation.profil_detecte
-        }
-    })
+    "/recommandations",
 
+    methods=["GET"]
+)
+def get_all_recommandations():
+
+    try:
+
+        recommandations = \
+            RecommendationController \
+            .get_all()
+
+        return jsonify({
+
+            "success":
+                True,
+
+            "total":
+                len(recommandations),
+
+            "data":
+
+                [
+
+                    {
+
+                        "id":
+                            r.id_recommandation,
+
+                        "score":
+                            r.score,
+
+                        "profil":
+                            r.profil_detecte,
+
+                        "session":
+                            r.id_session
+
+                    }
+
+                    for r in recommandations
+                ]
+
+        }), 200
+
+    except Exception as e:
+
+        return jsonify({
+
+            "success":
+                False,
+
+            "message":
+                str(e)
+
+        }), 400
