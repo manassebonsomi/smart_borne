@@ -52,3 +52,38 @@ class UtilisateurController:
             id_ville=id_ville
 
         ).all()
+
+    @staticmethod
+    def create(
+            nom,
+            prenom,
+            age,
+            niveau_scolaire,
+            type_profil,
+            id_ville
+    ):
+        utilisateur = Utilisateur(
+
+            nom=nom,
+
+            prenom=prenom,
+
+            age=age,
+
+            niveau_scolaire=
+            niveau_scolaire,
+
+            type_profil=
+            type_profil,
+
+            id_ville=
+            id_ville
+        )
+
+        db.session.add(
+            utilisateur
+        )
+
+        db.session.commit()
+
+        return utilisateur

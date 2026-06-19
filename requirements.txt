@@ -6,3 +6,4 @@ python-dotenv
 Werkzeug
 reportlab
 openpyxl
+flask-jwt-extended
