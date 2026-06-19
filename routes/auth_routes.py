@@ -29,3 +29,76 @@ def login():
         "status": "error",
         "message": "Email ou mot de passe incorrect"
     }), 401
+
+
+@auth_routes.route(
+    "/auth/logout",
+    methods=["POST"]
+)
+def logout():
+
+    return jsonify({
+
+        "success":
+            True,
+
+        "message":
+            "Déconnexion réussie"
+
+    })
+
+
+@auth_routes.route(
+    "/auth/profile/<int:id_formateur>",
+    methods=["GET"]
+)
+def profile(
+        id_formateur
+):
+
+    try:
+
+        utilisateur = \
+            AuthController \
+            .get_by_id(
+                id_formateur
+            )
+
+        if not utilisateur:
+
+            return jsonify({
+
+                "success":
+                    False
+
+            }), 404
+
+        return jsonify({
+
+            "success":
+                True,
+
+            "data": {
+
+                "id":
+                    utilisateur.id_formateur,
+
+                "nom":
+                    utilisateur.nom,
+
+                "email":
+                    utilisateur.email
+            }
+
+        })
+
+    except Exception as e:
+
+        return jsonify({
+
+            "success":
+                False,
+
+            "message":
+                str(e)
+        }), 400

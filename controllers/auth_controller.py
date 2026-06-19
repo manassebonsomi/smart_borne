@@ -11,3 +11,11 @@ class AuthController:
             return user
 
         return None
+
+    @staticmethod
+    def get_by_id(
+            id_formateur
+    ):
+        return Formateur.query.get(
+            id_formateur
+        )
