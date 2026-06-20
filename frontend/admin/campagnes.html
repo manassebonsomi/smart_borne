@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+
+    <title>
+        Gestion des Campagnes
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/style.css">
+
+</head>
+
+<body>
+<nav>
+
+    <a href="dashboard.html">
+        Dashboard
+    </a>
+
+    <a href="questions.html">
+        Questions
+    </a>
+
+    <a href="utilisateurs.html">
+        Utilisateurs
+    </a>
+
+    <a href="campagnes.html">
+        Campagnes
+    </a>
+
+    <a href="commandes.html">
+        Commandes
+    </a>
+
+    <a href="audit.html">
+        Audit
+    </a>
+
+    <a href="erreurs.html">
+        Erreurs
+    </a>
+
+</nav>
+
+<hr>
+
+<h1>
+    Gestion des Campagnes
+</h1>
+
+
+<button onclick="loadCampagnes()">
+    Actualiser
+</button>
+
+<table>
+
+    <thead>
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Nom</th>
+
+            <th>Description</th>
+
+            <th>Date Début</th>
+
+            <th>Date Fin</th>
+
+            <th>Active</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody id="campagnesTable">
+
+    </tbody>
+
+</table>
+
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/campagnes.js"></script>
+
+</body>
+
+</html>

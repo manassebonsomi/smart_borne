@@ -6,13 +6,60 @@ dashboard_routes = Blueprint("dashboard_routes", __name__)
 
 
 @dashboard_routes.route("/dashboard/statistics", methods=["GET"])
-@jwt_required()
+# @jwt_required()
 def statistics():
     return jsonify({
         "success": True,
         "data": DashboardController.statistics()
     }), 200
 
+
+@dashboard_routes.route(
+    "/dashboard/parcours",
+    methods=["GET"]
+)
+def dashboard_parcours():
+
+    return jsonify({
+
+        "success": True,
+
+        "data":
+            DashboardController
+            .parcours_statistics()
+    })
+
+
+@dashboard_routes.route(
+    "/dashboard/session_statistics",
+    methods=["GET"]
+)
+def dashboard_session_statistics():
+
+    return jsonify({
+
+        "success": True,
+
+        "data":
+            DashboardController
+            .session_statistics()
+    })
+
+
+@dashboard_routes.route(
+    "/dashboard/user_statistics",
+    methods=["GET"]
+)
+def dashboard_user_statistics():
+
+    return jsonify({
+
+        "success": True,
+
+        "data":
+            DashboardController
+            .user_statistics()
+    })
 
 @dashboard_routes.route(
     "/dashboard/recommendations",

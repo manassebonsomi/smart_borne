@@ -67,7 +67,7 @@ class RecommendationService:
             Recommandation(
 
                 score=
-                resultat["score_final"],
+                resultat["score"],
 
                 profil_detecte=
                 resultat["parcours"],

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+        Gestion des Erreurs
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/style.css">
+
+</head>
+
+<body>
+<nav>
+
+    <a href="dashboard.html">
+        Dashboard
+    </a>
+
+    <a href="questions.html">
+        Questions
+    </a>
+
+    <a href="utilisateurs.html">
+        Utilisateurs
+    </a>
+
+    <a href="campagnes.html">
+        Campagnes
+    </a>
+
+    <a href="commandes.html">
+        Commandes
+    </a>
+
+    <a href="audit.html">
+        Audit
+    </a>
+
+    <a href="erreurs.html">
+        Erreurs
+    </a>
+
+</nav>
+
+<hr>
+<h1>
+    Journal des Erreurs
+</h1>
+
+<button onclick="loadErreurs()">
+    Actualiser
+</button>
+
+<table>
+
+    <thead>
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Type</th>
+
+            <th>Message</th>
+
+            <th>Corrigée</th>
+
+            <th>Date</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody id="erreursTable">
+
+    </tbody>
+
+</table>
+
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/erreurs.js"></script>
+
+</body>
+
+</html>

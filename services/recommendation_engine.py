@@ -20,7 +20,9 @@ class RecommendationEngine:
             "Mentor Junior": 0
         }
 
-        # ANALYSE DE L'AGE
+        # =========================
+        # AGE
+        # =========================
 
         if age <= 7:
 
@@ -42,36 +44,46 @@ class RecommendationEngine:
 
             scores["Mentor Junior"] += 40
 
-        # ANALYSE DU NIVEAU SCOLAIRE
+        # =========================
+        # NIVEAU SCOLAIRE
+        # =========================
 
         niveau = niveau_scolaire.lower()
 
         if niveau in [
+
             "1ere",
             "2eme",
             "3eme"
+
         ]:
 
             scores["Découverte Numérique"] += 20
 
         elif niveau in [
+
             "4eme",
             "5eme",
             "6eme"
+
         ]:
 
             scores["Scratch Junior"] += 20
 
         elif niveau in [
+
             "7eme",
             "8eme"
+
         ]:
 
             scores["Scratch Avancé"] += 20
 
         elif niveau in [
+
             "1ere secondaire",
             "2eme secondaire"
+
         ]:
 
             scores["Python Débutant"] += 20
@@ -80,69 +92,57 @@ class RecommendationEngine:
 
             scores["Mentor Junior"] += 20
 
-        # ANALYSE DES REPONSES
+        # =========================
+        # REPONSES
+        # =========================
 
         for reponse in reponses:
 
             r = reponse.lower()
 
-            # Jeux
-
             if "jeu" in r:
 
                 scores["Scratch Junior"] += 15
-
                 scores["Scratch Avancé"] += 10
-
-            # Animation
 
             if "animation" in r:
 
                 scores["Scratch Junior"] += 15
-
                 scores["Scratch Avancé"] += 10
-
-            # Programmation
 
             if "programmer" in r:
 
                 scores["Python Débutant"] += 20
 
-            # Résolution de problèmes
-
             if "problème" in r:
 
                 scores["Python Débutant"] += 15
-
                 scores["Mentor Junior"] += 10
-
-            # Leadership
 
             if "enseigner" in r:
 
                 scores["Mentor Junior"] += 20
 
-            # Créativité
-
             if "créer" in r:
 
                 scores["Scratch Avancé"] += 15
 
-        #  DETERMINER LE MEILLEUR PARCOURS
+        # =========================
+        # MEILLEUR PARCOURS
+        # =========================
 
         parcours = max(
             scores,
             key=scores.get
         )
 
+        score_final = scores[parcours]
+
         return {
 
             "parcours":
                 parcours,
 
-            "scores":
-                scores,
-
-            "score_final":
-                scores[parcours]
+            "score":
+                score_final
         }

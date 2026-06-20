@@ -5,6 +5,8 @@ from models.question import Question
 from models.campagne import Campagne
 from models.erreur import Erreur
 from models.audit_log import AuditLog
+from models.parcours import Parcours
+from models.commande import Commande
 
 
 class DashboardController:
@@ -26,11 +28,98 @@ class DashboardController:
             "questions":
                 Question.query.count(),
 
+            "commandes":
+                Commande.query.count(),
+
             "campagnes":
                 Campagne.query.count(),
 
             "erreurs":
                 Erreur.query.count()
+        }
+
+    @staticmethod
+    def parcours_statistics():
+        resultats = []
+
+        parcours = \
+            Parcours.query.order_by(
+                Parcours.nom_parcours
+            ).all()
+
+        for p in parcours:
+            total = \
+                Recommandation.query.filter_by(
+                    id_parcours=p.id_parcours
+                ).count()
+
+            resultats.append({
+
+                "parcours":
+                    p.nom_parcours,
+
+                "nombre":
+                    total
+            })
+
+        return resultats
+
+    @staticmethod
+    def session_statistics():
+        return {
+
+            "actives":
+
+                SessionUtilisateur.query
+                .filter_by(
+                    etat="QUESTIONNAIRE"
+                )
+                .count(),
+
+            "interrompues":
+
+                SessionUtilisateur.query
+                .filter_by(
+                    etat="SESSION_INTERRUPTION"
+                )
+                .count(),
+
+            "terminees":
+
+                SessionUtilisateur.query
+                .filter_by(
+                    etat="FIN_SESSION"
+                )
+                .count()
+        }
+
+    @staticmethod
+    def user_statistics():
+        return {
+
+            "enfants":
+
+                Utilisateur.query
+                .filter_by(
+                    type_profil="ENFANT"
+                )
+                .count(),
+
+            "adolescents":
+
+                Utilisateur.query
+                .filter_by(
+                    type_profil="ADOLESCENT"
+                )
+                .count(),
+
+            "parents":
+
+                Utilisateur.query
+                .filter_by(
+                    type_profil="PARENT"
+                )
+                .count()
         }
 
     @staticmethod

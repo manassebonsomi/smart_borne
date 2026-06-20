@@ -9,6 +9,41 @@ recommandation_bp = Blueprint(
     __name__
 )
 
+@recommandation_bp.route(
+    "/recommandation/generate/<int:id_session>",
+    methods=["POST"]
+)
+def generate_recommandation(
+        id_session
+):
+
+    try:
+
+        result = \
+            RecommendationController.generate(
+                id_session
+            )
+
+        return jsonify({
+
+            "success": True,
+
+            "data": result
+
+        }), 200
+
+    except Exception as e:
+
+        return jsonify({
+
+            "success": False,
+
+            "message": str(e)
+
+        }), 400
+
+
+
 
 @recommandation_bp.route(
     "/recommandation/<int:id_session>",

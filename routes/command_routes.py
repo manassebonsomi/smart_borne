@@ -13,7 +13,7 @@ command_bp = Blueprint(
     "/commands/execute",
     methods=["POST"]
 )
-@jwt_required()
+# @jwt_required()
 def execute_command():
 
     data = request.json

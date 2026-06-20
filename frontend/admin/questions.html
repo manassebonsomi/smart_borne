@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Questions
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/style.css">
+
+</head>
+
+<body>
+<nav>
+
+    <a href="dashboard.html">
+        Dashboard
+    </a>
+
+    <a href="questions.html">
+        Questions
+    </a>
+
+    <a href="utilisateurs.html">
+        Utilisateurs
+    </a>
+
+    <a href="campagnes.html">
+        Campagnes
+    </a>
+
+    <a href="commandes.html">
+        Commandes
+    </a>
+
+    <a href="audit.html">
+        Audit
+    </a>
+
+    <a href="erreurs.html">
+        Erreurs
+    </a>
+
+</nav>
+
+<hr>
+<h1>
+    Gestion des Questions
+</h1>
+
+<button onclick="loadQuestions()">
+    Actualiser
+</button>
+
+<table>
+
+    <thead>
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Question</th>
+
+            <th>Ordre</th>
+
+            <th>Active</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody id="questionsTable">
+
+    </tbody>
+
+</table>
+
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/questions.js"></script>
+
+</body>
+
+</html>
