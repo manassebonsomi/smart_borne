@@ -4,6 +4,7 @@ from flask import jsonify
 
 from controllers.session_controller \
     import SessionController
+from services.session_manager import SessionManager
 
 session_bp = Blueprint(
     "session",
@@ -40,6 +41,53 @@ def start_session():
         }
     })
 
+
+@session_bp.route(
+    "/session/<int:id_session>",
+    methods=["GET"]
+)
+def get_session(id_session):
+
+    session = \
+        SessionManager.get_session(
+            id_session
+        )
+
+    if not session:
+
+        return jsonify({
+
+            "success":
+                False,
+
+            "message":
+                "Session introuvable"
+
+        }), 404
+
+    return jsonify({
+
+        "success":
+            True,
+
+        "data": {
+
+            "id_session":
+                session.id_session,
+
+            "etat":
+                session.etat,
+
+            "question_actuelle":
+                session.question_actuelle,
+
+            "temps_inactivite":
+                session.temps_inactivite,
+
+            "sauvegardee":
+                session.sauvegardee
+        }
+    })
 
 @session_bp.route(
     "/session/save",

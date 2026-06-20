@@ -40,22 +40,23 @@ class RecommendationController:
 
             ).all()
 
-        textes = [
+        donnees_reponses = []
 
-            r.valeur
+        for reponse in reponses:
+            donnees_reponses.append({
 
-            for r in reponses
-        ]
+                "categorie":
+                    reponse.question.id_categorie,
+                "valeur":
+                    reponse.valeur_reponse
+            })
 
         return \
             RecommendationService \
             .generate_and_save(
-
                 session,
-
                 utilisateur,
-
-                textes
+                donnees_reponses
             )
 
     @staticmethod

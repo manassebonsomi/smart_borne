@@ -111,7 +111,7 @@ def save_answer():
 
             data["id_question"],
 
-            data["valeur"]
+            data["valeur_reponse"]
         )
 
     return jsonify({

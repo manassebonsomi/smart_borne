@@ -1,4 +1,5 @@
-from services.session_manager import SessionManager
+from services.session_manager import \
+    SessionManager
 
 
 class StateMachine:
@@ -38,48 +39,54 @@ class StateMachine:
         "FIN_SESSION": {}
     }
 
-    def __init__(self):
-
-        self.state = "ACCUEIL"
-
+    @staticmethod
     def transition(
-
-            self,
 
             event,
 
-            session_id=None
+            session_id
     ):
 
+        current_state = \
+            SessionManager.get_state(
+                session_id
+            )
+
+        if not current_state:
+
+            raise Exception(
+                "Session introuvable"
+            )
+
+        if current_state not in \
+                StateMachine.transitions:
+
+            raise Exception(
+                f"Etat inconnu : "
+                f"{current_state}"
+            )
+
         if event not in \
-                self.transitions[
-                    self.state
+                StateMachine.transitions[
+                    current_state
                 ]:
 
             raise Exception(
 
                 f"Transition invalide : "
-                f"{self.state} -> {event}"
+                f"{current_state} -> {event}"
             )
 
-        self.state = \
-            self.transitions[
-                self.state
+        next_state = \
+            StateMachine.transitions[
+                current_state
             ][event]
 
-        # Synchronisation BDD
+        SessionManager.set_state(
 
-        if session_id:
+            session_id,
 
-            SessionManager.set_state(
+            next_state
+        )
 
-                session_id,
-
-                self.state
-            )
-
-        return self.state
-
-    def get_state(self):
-
-        return self.state
+        return next_state

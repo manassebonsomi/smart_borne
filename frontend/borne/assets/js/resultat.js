@@ -5,11 +5,17 @@ async function generateResult(){
             "user_id"
         );
 
+    const sessionId = localStorage.getItem(
+        "session_id"
+    );
+
     const result =
         await apiGet(
 
-            `/recommandation/${userId}`
+            `/recommandation/${sessionId}`
         );
+
+    console.log(result)
 
     document
         .getElementById(

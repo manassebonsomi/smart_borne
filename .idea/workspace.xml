@@ -5,51 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d46cc552-6db7-48b4-b497-e7156a916465" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/ccc_orientation_system.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/auth_controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/command_controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/dashboard_controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/profile_controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/recommandation_controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/survey_controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/db_ccc_orientation_system.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/audit_log.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/campagne.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/categorie_question.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/commande.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/erreur.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/evenement.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/formateur.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/parcours.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/question.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/recommandation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/reponse.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/session.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/utilisateur.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/ville.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/auth_routes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/command_routes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/dashboard_routes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/survey_routes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/audit_service.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/lexical_analyzer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/ll1_parser.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/recommendation_engine.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/session_manager.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/state_machine.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_relations.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/recommendation_engine_copie.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/command_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/command_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/recommandation_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/recommandation_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/session_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/session_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/survey_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/survey_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/assets/js/commandes.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/js/commandes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/borne/assets/js/profil.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/borne/assets/js/profil.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/borne/assets/js/questionnaire.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/borne/assets/js/questionnaire.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/borne/assets/js/resultat.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/borne/assets/js/resultat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/command_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/command_routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/dashboard_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/dashboard_routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/session_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/session_routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/survey_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/survey_routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/ll1_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/ll1_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/recommendation_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/recommendation_engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/session_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/session_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/state_machine.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/state_machine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/token.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/token.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,9 +41,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="3FE5Bdx0JYwB52DSiOGAmueFSNT" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -78,16 +52,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/Manasse/PycharmProjects/medical-system-api"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Manasse/PycharmProjects/medical-system-api&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Manasse\PycharmProjects\ccc_orientation_system\frontend\borne\assets\css" />
       <recent name="C:\Users\Manasse\PycharmProjects\ccc_orientation_system" />
       <recent name="C:\Users\Manasse\PycharmProjects\ccc_orientation_system\tests" />
     </key>

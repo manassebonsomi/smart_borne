@@ -1,8 +1,9 @@
 function sendCommand() {
 
-    let command = document.getElementById("commandInput").value;
+    let command =
+        document.getElementById("commandInput").value;
 
-    fetch("/api/command", {
+    fetch("http://127.0.0.1:5000/api/commands/execute", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -15,23 +16,17 @@ function sendCommand() {
         document.getElementById("commandResponse").innerText =
             JSON.stringify(data, null, 2);
 
-        loadCommandes(); // refresh table
+        loadCommandes();
     });
 }
 
 async function loadCommandes() {
 
     const result =
-        await apiGet(
-            "/commands"
-        );
+        await apiGet("/commands");
 
     if (!result.success) {
-
-        alert(
-            "Erreur chargement commandes"
-        );
-
+        alert("Erreur chargement commandes");
         return;
     }
 
@@ -40,31 +35,17 @@ async function loadCommandes() {
     result.data.forEach(c => {
 
         html += `
-
         <tr>
-
             <td>${c.id_commande}</td>
-
             <td>${c.texte_commande}</td>
-
             <td>${c.tokens}</td>
-
             <td>${c.resultat}</td>
-
             <td>${c.valide}</td>
-
             <td>${c.date_execution}</td>
-
-        </tr>
-
-        `;
+        </tr>`;
     });
 
-    document
-        .getElementById(
-            "commandesTable"
-        )
-        .innerHTML = html;
+    document.getElementById("commandesTable").innerHTML = html;
 }
 
 loadCommandes();

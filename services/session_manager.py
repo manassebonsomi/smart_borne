@@ -201,11 +201,8 @@ class SessionManager:
                 .filter_by(
                 id_utilisateur=utilisateur_id,
                 etat="SESSION_INTERRUPTION"
-            ) \
-                .order_by(
-                SessionUtilisateur.id_session.desc()
-            ) \
-                .first()
+            ).order_by(SessionUtilisateur.id_session.desc()
+            ).first()
 
     @staticmethod
     def can_resume(
@@ -281,3 +278,15 @@ class SessionManager:
                 "FIN_SESSION"
 
             db.session.commit()
+
+    @staticmethod
+    def get_state(session_id):
+
+        session = SessionUtilisateur.query.get(
+            session_id
+        )
+
+        if not session:
+            return None
+
+        return session.etat

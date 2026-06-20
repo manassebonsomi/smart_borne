@@ -3,14 +3,16 @@ document
         "profileForm"
     )
     .addEventListener(
+
         "submit",
 
-        async function(e) {
+        async function (e) {
 
             e.preventDefault();
 
             const age =
                 parseInt(
+
                     document
                     .getElementById(
                         "age"
@@ -21,56 +23,122 @@ document
             let profil =
                 "ENFANT";
 
-            if(age >= 13){
+            if (age >= 13) {
 
                 profil =
                     "ADOLESCENT";
             }
 
-            const response =
-                await apiPost(
+            try {
 
-                    "/utilisateurs",
+                /*
+                ==========================
+                CREATION UTILISATEUR
+                ==========================
+                */
 
-                    {
+                const userResponse =
+                    await apiPost(
 
-                        nom:
-                            document
-                            .getElementById(
-                                "nom"
-                            ).value,
+                        "/utilisateurs",
 
-                        prenom:
-                            document
-                            .getElementById(
-                                "prenom"
-                            ).value,
+                        {
 
-                        age:
-                            age,
+                            nom:
+                                document
+                                .getElementById(
+                                    "nom"
+                                )
+                                .value,
 
-                        niveau_scolaire:
-                            document
-                            .getElementById(
-                                "niveau"
-                            ).value,
+                            prenom:
+                                document
+                                .getElementById(
+                                    "prenom"
+                                )
+                                .value,
 
-                        type_profil:
-                            profil,
+                            age:
+                                age,
 
-                        id_ville:
-                            1
-                    }
+                            niveau_scolaire:
+                                document
+                                .getElementById(
+                                    "niveau"
+                                )
+                                .value,
+
+                            type_profil:
+                                profil,
+
+                            id_ville:
+                                1
+                        }
+                    );
+
+                const userId =
+                    userResponse.id_utilisateur;
+
+                localStorage.setItem(
+
+                    "user_id",
+
+                    userId
                 );
 
-            localStorage.setItem(
+                /*
+                ==========================
+                CREATION SESSION
+                ==========================
+                */
 
-                "user_id",
+                const sessionResponse =
+                    await apiPost(
 
-                response.data.id_utilisateur
-            );
+                        "/session/start",
 
-            window.location =
-                "questionnaire.html";
+                        {
+
+                            id_utilisateur:
+                                userId,
+
+                            id_campagne:
+                                null
+                        }
+                    );
+
+                const sessionId =
+                    sessionResponse
+                    .data
+                    .id_session;
+
+                localStorage.setItem(
+
+                    "session_id",
+
+                    sessionId
+                );
+
+                /*
+                ==========================
+                QUESTIONNAIRE
+                ==========================
+                */
+
+                window.location =
+                    "questionnaire.html";
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    error
+                );
+
+                alert(
+                    "Erreur création profil"
+                );
+            }
         }
     );

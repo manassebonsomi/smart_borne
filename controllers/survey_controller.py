@@ -1,83 +1,72 @@
-from services.state_machine import StateMachine
-from models.reponse import Reponse
-from config.database import db
+from services.state_machine import \
+    StateMachine
 
-from services.session_manager import SessionManager
+from models.reponse import Reponse
+
+from config.database import db
 
 
 class SurveyController:
-
-    machine = StateMachine()
 
     @staticmethod
     def start_session(
             session_id
     ):
 
-        return \
-            SurveyController.machine \
-                .transition(
+        return StateMachine.transition(
 
-                "START",
+            "START",
 
-                session_id
-            )
+            session_id
+        )
 
     @staticmethod
     def profile_created(
             session_id
     ):
 
-        return \
-            SurveyController.machine \
-                .transition(
+        return StateMachine.transition(
 
-                "PROFILE_CREATED",
+            "PROFILE_CREATED",
 
-                session_id
-            )
+            session_id
+        )
 
     @staticmethod
     def survey_completed(
             session_id
     ):
 
-        return \
-            SurveyController.machine \
-                .transition(
+        return StateMachine.transition(
 
-                "SURVEY_COMPLETED",
+            "SURVEY_COMPLETED",
 
-                session_id
-            )
+            session_id
+        )
 
     @staticmethod
     def result_ready(
             session_id
     ):
 
-        return \
-            SurveyController.machine \
-                .transition(
+        return StateMachine.transition(
 
-                "RESULT_READY",
+            "RESULT_READY",
 
-                session_id
-            )
+            session_id
+        )
 
     @staticmethod
     def finish(
             session_id
     ):
 
-        return \
-            SurveyController.machine \
-                .transition(
+        return StateMachine.transition(
 
-                "FINISH",
+            "FINISH",
 
-                session_id
-            )
+            session_id
+        )
 
     @staticmethod
     def save_answer(
@@ -86,15 +75,16 @@ class SurveyController:
 
             id_question,
 
-            valeur
+            valeur_reponse
     ):
+
         reponse = Reponse(
 
             id_session=id_session,
 
             id_question=id_question,
 
-            valeur=valeur
+            valeur_reponse=valeur_reponse
         )
 
         db.session.add(

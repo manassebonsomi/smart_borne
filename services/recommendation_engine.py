@@ -20,9 +20,9 @@ class RecommendationEngine:
             "Mentor Junior": 0
         }
 
-        # =========================
+        # ==================================
         # AGE
-        # =========================
+        # ==================================
 
         if age <= 7:
 
@@ -44,9 +44,9 @@ class RecommendationEngine:
 
             scores["Mentor Junior"] += 40
 
-        # =========================
+        # ==================================
         # NIVEAU SCOLAIRE
-        # =========================
+        # ==================================
 
         niveau = niveau_scolaire.lower()
 
@@ -92,44 +92,115 @@ class RecommendationEngine:
 
             scores["Mentor Junior"] += 20
 
-        # =========================
-        # REPONSES
-        # =========================
+        # ==================================
+        # ANALYSE DES REPONSES
+        # ==================================
 
         for reponse in reponses:
 
-            r = reponse.lower()
+            r = str(reponse["valeur"]).lower()
+            # categorie = reponse["categorie"]
 
-            if "jeu" in r:
+            # Créativité
 
-                scores["Scratch Junior"] += 15
-                scores["Scratch Avancé"] += 10
+            if any(
 
-            if "animation" in r:
+                mot in r
 
-                scores["Scratch Junior"] += 15
-                scores["Scratch Avancé"] += 10
+                for mot in [
 
-            if "programmer" in r:
+                    "dessin",
+                    "imaginer",
+                    "inventer",
+                    "créer",
+                    "créatif"
+                ]
 
-                scores["Python Débutant"] += 20
+            ):
 
-            if "problème" in r:
-
-                scores["Python Débutant"] += 15
-                scores["Mentor Junior"] += 10
-
-            if "enseigner" in r:
-
-                scores["Mentor Junior"] += 20
-
-            if "créer" in r:
+                scores["Scratch Junior"] += 10
 
                 scores["Scratch Avancé"] += 15
 
-        # =========================
-        # MEILLEUR PARCOURS
-        # =========================
+            # Logique
+
+            if any(
+
+                mot in r
+
+                for mot in [
+
+                    "logique",
+                    "énigme",
+                    "problème",
+                    "réflexion"
+                ]
+
+            ):
+
+                scores["Python Débutant"] += 15
+
+                scores["Mentor Junior"] += 10
+
+            # Programmation
+
+            if any(
+
+                mot in r
+
+                for mot in [
+
+                    "coder",
+                    "programmer",
+                    "application",
+                    "site web"
+                ]
+
+            ):
+
+                scores["Python Débutant"] += 25
+
+            # Leadership
+
+            if any(
+
+                mot in r
+
+                for mot in [
+
+                    "enseigner",
+                    "diriger",
+                    "équipe",
+                    "leader"
+                ]
+
+            ):
+
+                scores["Mentor Junior"] += 25
+
+            # Numérique
+
+            if any(
+
+                mot in r
+
+                for mot in [
+
+                    "ordinateur",
+                    "internet",
+                    "numérique",
+                    "technologie"
+                ]
+
+            ):
+
+                scores["Découverte Numérique"] += 15
+
+                scores["Scratch Junior"] += 10
+
+        # ==================================
+        # RECHERCHE DU MEILLEUR SCORE
+        # ==================================
 
         parcours = max(
             scores,

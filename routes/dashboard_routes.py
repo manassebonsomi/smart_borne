@@ -65,7 +65,7 @@ def dashboard_user_statistics():
     "/dashboard/recommendations",
     methods=["GET"]
 )
-@jwt_required()
+# @jwt_required()
 def recommendations():
     return jsonify({
         "success": True,
@@ -77,7 +77,7 @@ def recommendations():
     "/dashboard/errors",
     methods=["GET"]
 )
-@jwt_required()
+# @jwt_required()
 def errors():
     return jsonify({
         "success": True,
@@ -89,7 +89,7 @@ def errors():
     "/dashboard/audit",
     methods=["GET"]
 )
-@jwt_required()
+# @jwt_required()
 def audit():
     return jsonify({
 
@@ -102,7 +102,7 @@ def audit():
     "/dashboard/campaigns",
     methods=["GET"]
 )
-@jwt_required()
+# @jwt_required()
 def campaigns():
     return jsonify({
         "success": True,
@@ -114,7 +114,7 @@ def campaigns():
     "/dashboard/questions",
     methods=["GET"]
 )
-@jwt_required()
+# @jwt_required()
 def questions():
     return jsonify({
         "success": True,

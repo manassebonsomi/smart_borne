@@ -7,10 +7,22 @@ let current = 0;
 
 let inactivity = 0;
 
+let surveyFinished = false;
+
 let sessionId =
     localStorage.getItem(
         "session_id"
     );
+
+if (!sessionId) {
+
+    alert(
+        "Aucune session active"
+    );
+
+    window.location =
+        "profil.html";
+}
 
 let userId =
     localStorage.getItem(
@@ -21,6 +33,7 @@ let currentQuestion =
     null;
 
 let selectedValue = "";
+
 
 /*
 =====================================
@@ -34,7 +47,6 @@ async function loadQuestions() {
 
         const response =
             await fetch(
-
                 API_URL +
                 "/questions"
             );
@@ -54,11 +66,11 @@ async function loadQuestions() {
             return;
         }
 
-        restoreProgress();
+        await restoreProgress();
 
     }
 
-    catch (error) {
+    catch(error) {
 
         console.error(error);
 
@@ -67,6 +79,7 @@ async function loadQuestions() {
         );
     }
 }
+
 
 /*
 =====================================
@@ -86,26 +99,33 @@ async function restoreProgress() {
                 sessionId
             );
 
-        const result =
-            await response.json();
+        if(response.ok) {
 
-        if (
-            result.success
-        ) {
+            const result =
+                await response.json();
 
-            current =
-                result.data
-                .question_actuelle || 0;
+            if (
+                result.success
+            ) {
+
+                current =
+                    result.data
+                    .question_actuelle || 0;
+            }
         }
 
         showQuestion();
+
     }
 
-    catch (error) {
+    catch(error) {
+
+        console.error(error);
 
         showQuestion();
     }
 }
+
 
 /*
 =====================================
@@ -127,6 +147,15 @@ function showQuestion() {
 
     currentQuestion =
         questions[current];
+
+    const savedAnswer =
+
+        localStorage.getItem(
+
+            "answer_" +
+            currentQuestion.id_question
+
+        ) || "";
 
     document
         .getElementById(
@@ -158,11 +187,12 @@ function showQuestion() {
             id="answer"
             class="answer-box"
             placeholder="Votre réponse..."
-        ></textarea>
+        >${savedAnswer}</textarea>
         `;
 
     updateProgressBar();
 }
+
 
 /*
 =====================================
@@ -175,7 +205,8 @@ function updateProgressBar() {
     const percent =
 
         (
-            current /
+            (current + 1)
+            /
             questions.length
         ) * 100;
 
@@ -187,6 +218,7 @@ function updateProgressBar() {
 
         percent + "%";
 }
+
 
 /*
 =====================================
@@ -216,12 +248,83 @@ async function saveAnswer() {
         return false;
     }
 
+    localStorage.setItem(
+
+        "answer_" +
+        currentQuestion.id_question,
+
+        selectedValue
+    );
+
+    try {
+
+        const response =
+            await fetch(
+
+                API_URL +
+                "/survey/save-answer",
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            id_session:
+                                sessionId,
+
+                            id_question:
+                                currentQuestion
+                                .id_question,
+
+                            valeur_reponse:
+                                selectedValue
+                        })
+                }
+            );
+
+        if(!response.ok) {
+
+            throw new Error(
+                "Erreur sauvegarde réponse"
+            );
+        }
+
+        await saveSessionProgress();
+
+        return true;
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        return false;
+    }
+}
+
+
+/*
+=====================================
+SAUVEGARDE SESSION
+=====================================
+*/
+
+async function saveSessionProgress() {
+
     try {
 
         await fetch(
 
             API_URL +
-            "/survey/save-answer",
+            "/session/save",
 
             {
 
@@ -239,67 +342,23 @@ async function saveAnswer() {
                         id_session:
                             sessionId,
 
-                        id_question:
-                            currentQuestion
-                            .id_question,
+                        question:
+                            current,
 
-                        valeur:
-                            selectedValue
+                        etat:
+                            "QUESTIONNAIRE"
                     })
             }
         );
 
-        await saveSessionProgress();
-
-        return true;
     }
 
-    catch (error) {
+    catch(error) {
 
         console.error(error);
-
-        return false;
     }
 }
 
-/*
-=====================================
-SAUVEGARDE SESSION
-=====================================
-*/
-
-async function saveSessionProgress() {
-
-    await fetch(
-
-        API_URL +
-        "/session/save",
-
-        {
-
-            method: "POST",
-
-            headers: {
-
-                "Content-Type":
-                    "application/json"
-            },
-
-            body:
-                JSON.stringify({
-
-                    id_session:
-                        sessionId,
-
-                    question:
-                        current,
-
-                    etat:
-                        "QUESTIONNAIRE"
-                })
-        }
-    );
-}
 
 /*
 =====================================
@@ -320,6 +379,7 @@ async function nextQuestion() {
     showQuestion();
 }
 
+
 /*
 =====================================
 QUESTION PRECEDENTE
@@ -338,6 +398,7 @@ function previousQuestion() {
     }
 }
 
+
 /*
 =====================================
 FIN QUESTIONNAIRE
@@ -346,35 +407,30 @@ FIN QUESTIONNAIRE
 
 async function finishSurvey() {
 
+    if (surveyFinished)
+        return;
+
+    surveyFinished = true;
+
     try {
+
+        /*
+        QUESTIONNAIRE -> ANALYSE
+        */
 
         await fetch(
 
             API_URL +
-            "/survey/finish",
+            "/survey/complete/" +
+            sessionId,
 
             {
-
-                method: "POST",
-
-                headers: {
-
-                    "Content-Type":
-                        "application/json"
-                },
-
-                body: JSON.stringify({
-
-                    id_session:
-                        sessionId
-                })
+                method: "POST"
             }
         );
 
         /*
-        =====================
-        GENERER PARCOURS
-        =====================
+        GENERATION RECOMMANDATION
         */
 
         const recommandationResponse =
@@ -395,18 +451,33 @@ async function finishSurvey() {
             await recommandationResponse.json();
 
         if (
-
             !recommandationResult.success
-
         ) {
 
-            alert(
+            throw new Error(
 
-                "Erreur génération recommandation"
+                recommandationResult.message
             );
-
-            return;
         }
+
+        /*
+        ANALYSE -> RESULTAT
+        */
+
+        await fetch(
+
+            API_URL +
+            "/survey/result/" +
+            sessionId,
+
+            {
+                method: "POST"
+            }
+        );
+
+        /*
+        STOCKAGE LOCAL
+        */
 
         localStorage.setItem(
 
@@ -418,8 +489,26 @@ async function finishSurvey() {
             )
         );
 
-        window.location =
+        /*
+        RESULTAT -> FIN_SESSION
+        */
 
+        await fetch(
+
+            API_URL +
+            "/survey/finish/" +
+            sessionId,
+
+            {
+                method: "POST"
+            }
+        );
+
+        /*
+        REDIRECTION
+        */
+
+        window.location =
             "resultat.html";
 
     }
@@ -429,10 +518,15 @@ async function finishSurvey() {
         console.error(error);
 
         alert(
-            "Erreur fin questionnaire"
+
+            "Erreur : " +
+            error.message
         );
+
+        surveyFinished = false;
     }
 }
+
 
 /*
 =====================================
@@ -508,7 +602,7 @@ setInterval(
 
         }
 
-        catch (error) {
+        catch(error) {
 
             console.error(error);
         }
@@ -518,6 +612,7 @@ setInterval(
     30000
 );
 
+
 /*
 =====================================
 BOUTONS
@@ -525,26 +620,27 @@ BOUTONS
 */
 
 document
-.getElementById(
-    "nextBtn"
-)
-.addEventListener(
+    .getElementById(
+        "nextBtn"
+    )
+    .addEventListener(
 
-    "click",
+        "click",
 
-    nextQuestion
-);
+        nextQuestion
+    );
 
 document
-.getElementById(
-    "prevBtn"
-)
-.addEventListener(
+    .getElementById(
+        "prevBtn"
+    )
+    .addEventListener(
 
-    "click",
+        "click",
 
-    previousQuestion
-);
+        previousQuestion
+    );
+
 
 /*
 =====================================
@@ -553,3 +649,4 @@ INITIALISATION
 */
 
 loadQuestions();
+

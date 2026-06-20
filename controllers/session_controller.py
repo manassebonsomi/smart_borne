@@ -147,44 +147,6 @@ class SessionController:
         }
 
     @staticmethod
-    def get_session(
-            id_session
-    ):
-
-        session = \
-            SessionManager.get_session(
-                id_session
-            )
-
-        if not session:
-
-            return None
-
-        return {
-
-            "id_session":
-                session.id_session,
-
-            "id_utilisateur":
-                session.id_utilisateur,
-
-            "id_campagne":
-                session.id_campagne,
-
-            "etat":
-                session.etat,
-
-            "question_actuelle":
-                session.question_actuelle,
-
-            "temps_inactivite":
-                session.temps_inactivite,
-
-            "sauvegardee":
-                session.sauvegardee
-        }
-
-    @staticmethod
     def get_last_session(
             utilisateur_id
     ):
