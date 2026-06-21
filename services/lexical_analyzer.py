@@ -59,7 +59,14 @@ class LexicalAnalyzer:
             "INTERESSES",
 
         "PAR":
-            "PAR"
+            "PAR",
+
+        "LES":
+            "LES",
+
+        "LA":
+            "LA"
+
     }
 
     @staticmethod

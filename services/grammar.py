@@ -2,12 +2,14 @@ GRAMMAR = {
 
     "AFFICHER": [
 
-        ["AFFICHER",
-         "STATISTIQUES"],
+    ["AFFICHER", "STATISTIQUES"],
 
-        ["AFFICHER",
-         "ERREURS"]
-    ],
+    ["AFFICHER", "LES", "STATISTIQUES"],
+
+    ["AFFICHER", "ERREURS"],
+
+    ["AFFICHER", "LES", "ERREURS"]
+],
 
     "LANCER": [
 
@@ -41,17 +43,17 @@ GRAMMAR = {
 
     "MODIFIER": [
 
-        ["MODIFIER",
-         "QUESTION",
-         "NUMERO"]
-    ],
+    ["MODIFIER", "QUESTION", "NUMERO"],
+
+    ["MODIFIER", "QUESTION", "NUMERO", "NUMERO"]
+],
 
     "SUPPRIMER": [
 
-        ["SUPPRIMER",
-         "QUESTION",
-         "NUMERO"]
-    ],
+    ["SUPPRIMER", "QUESTION", "NUMERO"],
+
+    ["SUPPRIMER", "QUESTION", "NUMERO", "NUMERO"]
+],
 
     "EXPORTER": [
 

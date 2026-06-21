@@ -5,25 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d46cc552-6db7-48b4-b497-e7156a916465" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/services/recommendation_engine_copie.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/command_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/command_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/recommandation_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/recommandation_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/session_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/session_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/survey_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/survey_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/assets/js/commandes.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/js/commandes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/borne/assets/js/profil.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/borne/assets/js/profil.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/borne/assets/js/questionnaire.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/borne/assets/js/questionnaire.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/borne/assets/js/resultat.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/borne/assets/js/resultat.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/command_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/command_routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/dashboard_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/dashboard_routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/session_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/session_routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/survey_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/survey_routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/ll1_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/ll1_parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/recommendation_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/recommendation_engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/session_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/session_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/state_machine.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/state_machine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/token.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/token.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/campagne_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/campagne_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/command_executor.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/command_executor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/grammar.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/grammar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/lexical_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/lexical_analyzer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

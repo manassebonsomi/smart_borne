@@ -139,6 +139,15 @@ class CommandExecutor:
             "ECOLE"
         ]:
 
+            campagne = CampagneController.create(
+
+                nom_campagne=
+                "Campagne Ecole",
+
+                description=
+                "Campagne créée via commande IA"
+            )
+
             return {
 
                 "action":
@@ -146,6 +155,9 @@ class CommandExecutor:
 
                 "success":
                     True,
+
+                "campagne_id":
+                    campagne.id_campagne,
 
                 "etat":
                     "CAMPAGNE_LANCEE"
@@ -262,13 +274,27 @@ class CommandExecutor:
             "AJOUTER",
             "QUESTION"
         ]:
-            if data:
-                question = \
-                    QuestionController.create(
-                        data["texte_question"],
-                        data["ordre_question"],
-                        data["id_categorie"]
-                    )
+            if not data:
+                return {
+
+                    "action":
+                        "AJOUTER_QUESTION",
+
+                    "success":
+                        False,
+
+                    "message":
+                        "Les données de la question sont manquantes"
+                }
+
+            question = QuestionController.create(
+
+                data["texte_question"],
+
+                data["ordre_question"],
+
+                data["id_categorie"]
+            )
 
             return {
 
@@ -284,36 +310,16 @@ class CommandExecutor:
                     else None
             }
 
-        # else:
-        #
-        #     return {
-        #
-        #         "action":
-        #             "AJOUTER_QUESTION",
-        #
-        #         "success":
-        #             True,
-        #
-        #         "etat":
-        #             "ATTENTE_DONNEES"
-        #     }
-
         # =====================================
         # MODIFIER QUESTION NUMERO X
         # =====================================
 
-        elif (
+        elif token_types == [
 
-            len(token_types) >= 2
+            "MODIFIER",
+            "QUESTION"
 
-            and
-
-            token_types[0:2] == [
-
-                "MODIFIER",
-                "QUESTION"
-            ]
-        ):
+        ]:
 
             numero = next(
 
@@ -364,20 +370,6 @@ class CommandExecutor:
                         numero
                 }
 
-            # return {
-            #
-            #     "action":
-            #         "MODIFIER_QUESTION",
-            #
-            #     "success":
-            #         True,
-            #
-            #     "question_id":
-            #         numero,
-            #
-            #     "etat":
-            #         "ATTENTE_NOUVELLES_DONNEES"
-            # }
 
         # =====================================
         # SUPPRIMER QUESTION NUMERO X
@@ -470,16 +462,23 @@ class CommandExecutor:
             "SESSION"
         ]:
 
+            derniere_session = \
+                SessionManager.get_last_session(
+                    1
+                )
+
+            if derniere_session:
+                SessionManager.restart_session(
+                    derniere_session.id_session
+                )
+
             return {
 
                 "action":
                     "RECOMMENCER_SESSION",
 
                 "success":
-                    True,
-
-                "etat":
-                    "SESSION_REINITIALISEE"
+                    True
             }
 
         # =====================================
@@ -491,16 +490,23 @@ class CommandExecutor:
             "QUITTER"
         ]:
 
+            derniere_session = \
+                SessionManager.get_last_session(
+                    1
+                )
+
+            if derniere_session:
+                SessionManager.close_session(
+                    derniere_session.id_session
+                )
+
             return {
 
                 "action":
                     "QUITTER",
 
                 "success":
-                    True,
-
-                "etat":
-                    "FIN_SESSION"
+                    True
             }
 
         # =====================================

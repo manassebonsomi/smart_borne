@@ -13,8 +13,6 @@ class CampagneController:
     def create(
             nom_campagne,
             description,
-            date_debut,
-            date_fin
     ):
 
         try:
@@ -26,12 +24,6 @@ class CampagneController:
 
                 description=
                 description,
-
-                date_debut=
-                date_debut,
-
-                date_fin=
-                date_fin,
 
                 active=True
             )
