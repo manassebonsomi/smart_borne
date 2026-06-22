@@ -1,100 +1,175 @@
 async function loadStats() {
 
-    const stats =
-        await apiGet(
-            "/dashboard/statistics"
-        );
+    const stats = await apiGet("/dashboard/statistics");
 
-      // console.log(stats.data.questions);
+    const data = stats.data;
 
-      const data =
-        stats.data;
+    const container = document.getElementById("stats");
 
-    document
-        .getElementById(
-            "stats"
-        ).innerHTML =
+    container.innerHTML = "";
 
-        `
-        <h3>
-            Utilisateurs :
-            ${data.utilisateurs}
-        </h3>
+    const items = [
+        { label: "Utilisateurs", value: data.utilisateurs },
+        { label: "Sessions", value: data.sessions },
+        { label: "Questions", value: data.questions },
+        { label: "Recommandations", value: data.recommandations },
+        { label: "Commandes", value: data.commandes },
+        { label: "Campagnes", value: data.campagnes },
+        { label: "Audits", value: data.audits }
+    ];
 
-        <h3>
-            Sessions :
-            ${data.sessions}
-        </h3>
+    items.forEach(item => {
 
-        <h3>
-            Questions :
-            ${data.questions}
-        </h3>
+        const card = document.createElement("div");
+        card.className = "stat-card";
 
-        <h3>
-            Recommandations :
-            ${data.recommandations}
-        </h3>
+        card.innerHTML = `
+            <h2>${item.value}</h2>
+            <p>${item.label}</p>
         `;
+
+        container.appendChild(card);
+    });
 }
 
+
+async function loadStatsChart() {
+
+    const stats = await apiGet("/dashboard/statistics");
+    const data = stats.data;
+
+    const ctx1 = document.getElementById("statsChart");
+
+    new Chart(ctx1, {
+
+        type: "bar",
+
+        data: {
+            labels: [
+                "Utilisateurs",
+                "Sessions",
+                "Questions",
+                "Recommandations",
+                "Commandes",
+                "Campagnes",
+                "Audits"
+            ],
+
+            datasets: [{
+                label: "Statistiques CCC",
+                data: [
+                    data.utilisateurs,
+                    data.sessions,
+                    data.questions,
+                    data.recommandations,
+                    data.commandes,
+                    data.campagnes,
+                    data.audits
+                ],
+                backgroundColor: [
+                    "#2563eb",
+                    "#22c55e",
+                    "#f59e0b",
+                    "#ef4444",
+                    "#8b5cf6",
+                    "#14b8a6",
+                   "#f59e0b"
+                ]
+            }]
+        },
+
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // =========================
+    // DONUT CHART (vision globale)
+    // =========================
+
+    const ctx2 = document.getElementById("statsPieChart");
+
+    new Chart(ctx2, {
+
+        type: "doughnut",
+
+        data: {
+            labels: [
+                "Utilisateurs",
+                "Sessions",
+                "Questions"
+            ],
+
+            datasets: [{
+                data: [
+                    data.utilisateurs,
+                    data.sessions,
+                    data.questions
+                ],
+                backgroundColor: [
+                    "#2563eb",
+                    "#22c55e",
+                    "#f59e0b"
+                ]
+            }]
+        },
+
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
+            }
+        }
+    });
+}
 
 async function loadParcoursChart() {
 
-    const response =
-        await fetch(
+    const response = await fetch(API_URL + "/dashboard/parcours");
+    const result = await response.json();
 
-            API_URL +
-            "/dashboard/parcours"
-        );
+    const labels = result.data.map(p => p.parcours);
+    const values = result.data.map(p => p.nombre);
 
-    const result =
-        await response.json();
+    const ctx = document.getElementById("parcoursChart");
 
-    const labels =
+    new Chart(ctx, {
 
-        result.data.map(
+        type: "doughnut",
 
-            p => p.parcours
-        );
+        data: {
+            labels: labels,
+            datasets: [{
+                data: values,
+                backgroundColor: [
+                    "#2563eb",
+                    "#22c55e",
+                    "#f59e0b",
+                    "#ef4444",
+                    "#8b5cf6"
+                ],
+                borderWidth: 1
+            }]
+        },
 
-    const values =
-
-        result.data.map(
-
-            p => p.nombre
-        );
-
-    const ctx =
-
-        document
-        .getElementById(
-            "parcoursChart"
-        );
-
-    new Chart(
-
-        ctx,
-
-        {
-
-            type: "doughnut",
-
-            data: {
-
-                labels: labels,
-
-                datasets: [
-
-                    {
-
-                        data: values
-                    }
-                ]
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
             }
         }
-    );
+    });
 }
 
-loadStats();
-loadParcoursChart();
+loadStats()
+loadStatsChart()
+loadParcoursChart()

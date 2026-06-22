@@ -283,8 +283,12 @@ class CommandExecutor:
                     "success":
                         False,
 
+                    "etat": "ATTENTE_DONNEES",
+                    "show_form": True,
+                    "form_type": "add_question",
+
                     "message":
-                        "Les données de la question sont manquantes"
+                        "Les données de la question sont manquantes et en attente"
                 }
 
             question = QuestionController.create(
@@ -314,12 +318,20 @@ class CommandExecutor:
         # MODIFIER QUESTION NUMERO X
         # =====================================
 
-        elif token_types == [
+        elif (
 
-            "MODIFIER",
-            "QUESTION"
+                len(token_types) >= 2
 
-        ]:
+                and
+
+                token_types[0:2] == [
+
+                    "MODIFIER",
+                    "QUESTION"
+
+                ]
+
+        ):
 
             numero = next(
 
@@ -369,6 +381,25 @@ class CommandExecutor:
                     "question_id":
                         numero
                 }
+
+            else:
+                return {
+
+                    "action":
+                        "MODIFIER_QUESTION",
+
+                    "success":
+                        False,
+
+                    "etat": "ATTENTE_DONNEES",
+                    "show_form": True,
+                    "form_type": "edit_question",
+                    "question_id": numero,
+
+                    "message":
+                        "Les données de la question sont manquantes et en attente"
+                }
+
 
 
         # =====================================

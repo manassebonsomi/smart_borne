@@ -1,72 +1,25 @@
 import re
 
 from services.token import Token
+from services.reserved_words import RESERVED_WORDS
+from services.command_suggester import CommandSuggester
 
 
 class LexicalAnalyzer:
 
-    RESERVED_WORDS = {
+    IGNORED_WORDS = {
 
-        "AFFICHER": "AFFICHER",
-
-        "LANCER": "LANCER",
-
-        "CHERCHER": "CHERCHER",
-
-        "AJOUTER": "AJOUTER",
-
-        "MODIFIER": "MODIFIER",
-
-        "SUPPRIMER": "SUPPRIMER",
-
-        "EXPORTER": "EXPORTER",
-
-        "RECOMMENCER": "RECOMMENCER",
-
-        "QUITTER": "QUITTER",
-
-        "STATISTIQUES": "STATISTIQUES",
-
-        "ERREURS": "ERREURS",
-
-        "ENQUETE": "ENQUETE",
-
-        "CAMPAGNE": "CAMPAGNE",
-
-        "ENFANTS": "ENFANTS",
-
-        "ADOLESCENTS": "ADOLESCENTS",
-
-        "QUESTION": "QUESTION",
-
-        "RAPPORT": "RAPPORT",
-
-        "SESSION": "SESSION",
-
-        "CYBERSECURITE":
-            "CYBERSECURITE",
-
-        "ECOLE":
-            "ECOLE",
-
-        "PYTHON":
-            "PYTHON",
-
-        "KINSHASA":
-            "KINSHASA",
-
-        "INTERESSES":
-            "INTERESSES",
-
-        "PAR":
-            "PAR",
-
-        "LES":
-            "LES",
-
-        "LA":
-            "LA"
-
+        "LE",
+        "LA",
+        "LES",
+        "DE",
+        "DU",
+        "DES",
+        "UN",
+        "UNE",
+        "ET",
+        "D",
+        "L"
     }
 
     @staticmethod
@@ -81,7 +34,42 @@ class LexicalAnalyzer:
 
         tokens = []
 
+        # for word in words:
+        #
+        #     if word.isdigit():
+        #
+        #         tokens.append(
+        #             Token(
+        #                 "NUMERO",
+        #                 int(word)
+        #             )
+        #         )
+        #
+        #     elif word in \
+        #             LexicalAnalyzer \
+        #             .RESERVED_WORDS:
+        #
+        #         tokens.append(
+        #
+        #             Token(
+        #                 LexicalAnalyzer
+        #                 .RESERVED_WORDS[word],
+        #
+        #                 word
+        #             )
+        #         )
+        #
+        #     else:
+        #
+        #         raise Exception(
+        #
+        #             f"Token inconnu : {word}"
+        #         )
+
         for word in words:
+
+            if word in LexicalAnalyzer.IGNORED_WORDS:
+                continue
 
             if word.isdigit():
 
@@ -92,24 +80,37 @@ class LexicalAnalyzer:
                     )
                 )
 
-            elif word in \
-                    LexicalAnalyzer \
-                    .RESERVED_WORDS:
+            elif word in RESERVED_WORDS:
 
                 tokens.append(
-
                     Token(
-                        LexicalAnalyzer
-                        .RESERVED_WORDS[word],
-
+                        RESERVED_WORDS[word],
                         word
                     )
                 )
 
             else:
 
-                raise Exception(
+                # raise Exception(
+                #     f"Token inconnu : {word}"
+                # )
 
+                suggestion = \
+                    CommandSuggester.suggest(
+                        word
+                    )
+
+                if suggestion:
+                    raise Exception(
+
+                        f"Token inconnu : "
+                        f"{word}. "
+
+                        f"Voulez-vous dire "
+                        f"'{suggestion}' ?"
+                    )
+
+                raise Exception(
                     f"Token inconnu : {word}"
                 )
 

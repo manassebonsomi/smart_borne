@@ -2,7 +2,7 @@ async function loadAudit() {
 
     const result =
         await apiGet(
-            "/audit"
+            "/dashboard/audit"
         );
 
     if (!result.success) {
@@ -22,9 +22,9 @@ async function loadAudit() {
 
         <tr>
 
-            <td>${a.id_audit}</td>
+            <td>${a.id}</td>
 
-            <td>${a.date_action}</td>
+            <td>${a.date}</td>
 
             <td>${a.action}</td>
 

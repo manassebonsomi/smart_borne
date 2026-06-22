@@ -2,7 +2,7 @@ async function loadCampagnes() {
 
     const result =
         await apiGet(
-            "/campagnes"
+            "/dashboard/campaigns"
         );
 
     if (!result.success) {

@@ -12,10 +12,45 @@ function sendCommand() {
     })
     .then(res => res.json())
     .then(data => {
+        // AFFICHAGE REPONSE
 
-        document.getElementById("commandResponse").innerText =
-            JSON.stringify(data, null, 2);
+        document.getElementById(
+            "commandResponse"
+        ).innerText =
+            JSON.stringify(
+                data,
+                null,
+                2
+            );
 
+        // FORMULAIRES DYNAMIQUES
+
+        if (
+            data.execution &&
+            data.execution.show_form
+        ) {
+
+            if (
+                data.execution.form_type ===
+                "add_question"
+            ) {
+
+                showAddQuestionForm();
+            }
+
+            else if (
+                data.execution.form_type ===
+                "edit_question"
+            ) {
+
+                showEditQuestionForm(
+
+                    data.execution.question_id
+                );
+            }
+        }
+
+        // RECHARGER HISTORIQUE
         loadCommandes();
     });
 }
@@ -46,6 +81,162 @@ async function loadCommandes() {
     });
 
     document.getElementById("commandesTable").innerHTML = html;
+}
+
+function showAddQuestionForm() {
+
+    document.getElementById(
+        "dynamicForm"
+    ).innerHTML = `
+
+        <h3>Ajouter une question</h3>
+
+        <input
+            type="text"
+            id="texte_question"
+            placeholder="Texte question">
+
+        <input
+            type="number"
+            id="ordre_question"
+            placeholder="Ordre">
+
+        <input
+            type="number"
+            id="id_categorie"
+            placeholder="Catégorie">
+
+
+
+        <button
+            onclick="submitAddQuestion()">
+
+            Enregistrer
+        </button>
+    `;
+}
+
+async function submitAddQuestion() {
+
+    const payload = {
+
+        texte_question:
+            document.getElementById(
+                "texte_question"
+            ).value,
+
+        ordre_question:
+            parseInt(
+                document.getElementById(
+                    "ordre_question"
+                ).value
+            ),
+
+        id_categorie:
+            parseInt(
+                document.getElementById(
+                    "id_categorie"
+                ).value
+            )
+    };
+
+    const result =
+        await apiPost(
+            "/questions",
+            payload
+        );
+
+    if(result.id_question){
+
+        alert(
+            "Question ajoutée avec succès"
+        );
+
+        document.getElementById(
+            "dynamicForm"
+        ).innerHTML = "";
+
+        loadCommandes();
+
+    } else {
+
+        alert(
+            "Erreur lors de l'ajout"
+        );
+    }
+}
+
+function showEditQuestionForm(
+    questionId
+){
+
+    document.getElementById(
+        "dynamicForm"
+    ).innerHTML = `
+
+        <h3>
+            Modifier Question
+            ${questionId}
+        </h3>
+
+        <input
+            type="text"
+            id="texte_question" placeholder="Veuiller saisir la nouvelle question">
+
+        <input
+            type="number"
+            id="ordre_question" placeholder="Entrer le numero d'ordre">
+
+        <button
+            onclick="submitEditQuestion(${questionId})">
+
+            Modifier
+        </button>
+    `;
+}
+
+async function submitEditQuestion(questionId) {
+
+    const payload = {
+
+        texte_question:
+            document.getElementById(
+                "texte_question"
+            ).value,
+
+        ordre_question:
+            parseInt(
+                document.getElementById(
+                    "ordre_question"
+                ).value
+            ),
+
+    };
+
+    const result = await apiPut(
+        "/questions/" + questionId,
+        payload
+    );
+
+    if(result.success){
+
+        alert(
+            "Question modifiée avec succès"
+        );
+
+        document.getElementById(
+            "dynamicForm"
+        ).innerHTML = "";
+
+        loadCommandes();
+
+    } else {
+
+        alert(
+            result.message ||
+            "Erreur lors de la modification"
+        );
+    }
 }
 
 loadCommandes();

@@ -38,16 +38,24 @@ app.register_blueprint(dashboard_routes, url_prefix="/api")
 app.register_blueprint(survey_routes, url_prefix="/api")
 
 CORS(app)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = \
-'mysql+pymysql://root:343877@localhost/db_ccc_orientation_system'
-
+# mot_de_passe de connection à MySQL
+password = "343877"
+# Configuration MySQL
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:'+password+'@localhost/db_ccc_orientation_system'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# Configuration SQLite
+""" 
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(BASE_DIR, 'db_ccc_orientation_system.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+"""
 db.init_app(app)
 
 
-# Création automatique des tables
+""" 
+Création automatique des tables dans la base de données après lancememnt de app.py
+"""
 # with app.app_context():
 #     db.create_all()
 

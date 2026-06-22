@@ -123,14 +123,8 @@ def update_question(id_question):
 
     question = \
         QuestionController.update(
-
-            id_question,
-
             data["texte_question"],
-
             data["ordre_question"],
-
-            data["id_categorie"]
         )
 
     if not question:
@@ -149,7 +143,9 @@ def update_question(id_question):
         "success": True,
 
         "message":
-            "Question modifiée"
+            "Question modifiée",
+
+        "id": id_question
     })
 
 

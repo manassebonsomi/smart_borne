@@ -1,91 +1,59 @@
 from config.database import db
-
-from models.campagne import \
-    Campagne
-
-from services.audit_service import \
-    AuditService
+from models.campagne import Campagne
+from services.audit_service import AuditService
 
 
 class CampagneController:
 
     @staticmethod
-    def create(
-            nom_campagne,
-            description,
-    ):
-
+    def create(nom_campagne, description):
         try:
-
             campagne = Campagne(
-
-                nom_campagne=
-                nom_campagne,
-
-                description=
-                description,
-
+                nom_campagne=nom_campagne,
+                description=description,
                 active=True
             )
 
-            db.session.add(
-                campagne
-            )
-
+            db.session.add(campagne)
             db.session.commit()
+
+            AuditService.log(
+                action="CREATION_CAMPAGNE",
+                objet=nom_campagne,
+                resultat="SUCCES",
+                details=description
+            )
 
             return campagne
 
         except Exception:
-
             db.session.rollback()
-
             return None
 
     @staticmethod
     def get_all():
-
         return Campagne.query.all()
 
     @staticmethod
-    def get_by_id(
-            id_campagne
-    ):
-
-        return Campagne.query.get(
-            id_campagne
-        )
+    def get_by_id(id_campagne):
+        return Campagne.query.get(id_campagne)
 
     @staticmethod
-    def activate(
-            id_campagne
-    ):
-
-        campagne = Campagne.query.get(
-            id_campagne
-        )
+    def activate(id_campagne):
+        campagne = Campagne.query.get(id_campagne)
 
         if campagne:
-
             campagne.active = True
-
             db.session.commit()
 
         return campagne
 
     @staticmethod
-    def deactivate(
-            id_campagne
-    ):
-
-        campagne = Campagne.query.get(
-            id_campagne
-        )
+    def deactivate(id_campagne):
+        campagne = Campagne.query.get(id_campagne)
 
         if campagne:
-
             campagne.active = False
-
             db.session.commit()
 
         return campagne

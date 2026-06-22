@@ -2,7 +2,7 @@ async function loadErreurs() {
 
     const result =
         await apiGet(
-            "/erreurs"
+            "/dashboard/errors"
         );
 
     if (!result.success) {
@@ -22,9 +22,9 @@ async function loadErreurs() {
 
         <tr>
 
-            <td>${e.id}</td>
+            <td>${e.id_erreur}</td>
 
-            <td>${e.type}</td>
+            <td>${e.type_erreur}</td>
 
             <td>${e.message}</td>
 

@@ -1,6 +1,6 @@
 from config.database import db
-
 from models.audit_log import AuditLog
+from models.erreur import Erreur
 
 
 class AuditService:
@@ -40,7 +40,6 @@ class AuditService:
             details=message
         )
 
-
     @staticmethod
     def log_command(
             commande
@@ -79,10 +78,9 @@ class AuditService:
     def log_recommendation(
             profil
     ):
-
         AuditService.log(
-            "RECOMMANDATION",
-            profil,
-            "GENEREE",
-            "Parcours proposé"
+            action="RECOMMANDATION",
+            objet=profil,
+            resultat="GENEREE",
+            details="Parcours proposé"
         )

@@ -9,34 +9,20 @@ from config.database import db
 class CommandController:
 
     @staticmethod
-    def execute(
-        texte_commande,
-        id_formateur=None,
-        data=None
-    ):
-
+    def execute(texte_commande, id_formateur=None, data=None):
         try:
-
-            tokens = LexicalAnalyzer.tokenize(
-                texte_commande
-            )
-
+            tokens = LexicalAnalyzer.tokenize(texte_commande)
             valide = LL1Parser.parse(tokens)
-
             execution = None
             resultat = "SYNTAXE_INVALIDE"
 
             if valide:
-
                 execution = CommandExecutor.execute(
                     tokens,
                     data=data
                 )
 
-                resultat = execution.get(
-                    "action",
-                    "SUCCES"
-                )
+                resultat = execution.get("action", "SUCCES")
 
             commande = Commande(
                 texte_commande=texte_commande,
@@ -64,9 +50,7 @@ class CommandController:
             }
 
         except Exception as e:
-
             db.session.rollback()
-
             AuditService.log_error(str(e))
 
             return {

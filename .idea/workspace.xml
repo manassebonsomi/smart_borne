@@ -5,11 +5,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d46cc552-6db7-48b4-b497-e7156a916465" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/services/command_suggester.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/reserved_words.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/start.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/security.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/security.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/auth_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/auth_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/campagne_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/campagne_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/command_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/command_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/dashboard_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/dashboard_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/erreur_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/erreur_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/profile_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/profile_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/question_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/question_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/recommandation_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/recommandation_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/report_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/report_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/session_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/session_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/admin/commandes.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/admin/commandes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/admin/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/admin/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/assets/js/audit.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/js/audit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/assets/js/campagnes.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/js/campagnes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/assets/js/commandes.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/js/commandes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/assets/js/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/js/dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/assets/js/erreurs.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/js/erreurs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/question_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/question_routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/audit_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/audit_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/command_executor.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/command_executor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/grammar.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/grammar.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/lexical_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/lexical_analyzer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/ll1_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/ll1_parser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
