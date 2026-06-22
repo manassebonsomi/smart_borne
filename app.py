@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_cors import CORS
-from models import *
 from config.database import db
 from flask_jwt_extended import JWTManager
 from config.security import SecurityConfig

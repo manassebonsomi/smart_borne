@@ -1,5 +1,4 @@
 import re
-
 from services.token import Token
 from services.reserved_words import RESERVED_WORDS
 from services.command_suggester import CommandSuggester
@@ -8,7 +7,6 @@ from services.command_suggester import CommandSuggester
 class LexicalAnalyzer:
 
     IGNORED_WORDS = {
-
         "LE",
         "LA",
         "LES",
@@ -26,99 +24,35 @@ class LexicalAnalyzer:
     def tokenize(command):
 
         command = command.upper()
-
-        words = re.findall(
-            r'\d+|[A-Z]+',
-            command
-        )
-
+        words = re.findall(r'\d+|[A-Z]+', command)
         tokens = []
 
-        # for word in words:
-        #
-        #     if word.isdigit():
-        #
-        #         tokens.append(
-        #             Token(
-        #                 "NUMERO",
-        #                 int(word)
-        #             )
-        #         )
-        #
-        #     elif word in \
-        #             LexicalAnalyzer \
-        #             .RESERVED_WORDS:
-        #
-        #         tokens.append(
-        #
-        #             Token(
-        #                 LexicalAnalyzer
-        #                 .RESERVED_WORDS[word],
-        #
-        #                 word
-        #             )
-        #         )
-        #
-        #     else:
-        #
-        #         raise Exception(
-        #
-        #             f"Token inconnu : {word}"
-        #         )
-
         for word in words:
-
             if word in LexicalAnalyzer.IGNORED_WORDS:
                 continue
 
             if word.isdigit():
-
                 tokens.append(
-                    Token(
-                        "NUMERO",
-                        int(word)
-                    )
-                )
+                    Token("NUMERO", int(word)))
 
             elif word in RESERVED_WORDS:
-
-                tokens.append(
-                    Token(
-                        RESERVED_WORDS[word],
-                        word
-                    )
-                )
+                tokens.append(Token(RESERVED_WORDS[word], word))
 
             else:
-
-                # raise Exception(
-                #     f"Token inconnu : {word}"
-                # )
-
-                suggestion = \
-                    CommandSuggester.suggest(
-                        word
-                    )
+                suggestion = CommandSuggester.suggest(word)
 
                 if suggestion:
                     raise Exception(
-
                         f"Token inconnu : "
                         f"{word}. "
-
                         f"Voulez-vous dire "
                         f"'{suggestion}' ?"
                     )
-
                 raise Exception(
                     f"Token inconnu : {word}"
                 )
 
         tokens.append(
-            Token(
-                "EOF",
-                "EOF"
-            )
-        )
-
+            Token("EOF","EOF"))
+        
         return tokens

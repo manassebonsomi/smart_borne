@@ -1,11 +1,7 @@
 async function loadStats() {
-
     const stats = await apiGet("/dashboard/statistics");
-
     const data = stats.data;
-
     const container = document.getElementById("stats");
-
     container.innerHTML = "";
 
     const items = [
@@ -37,13 +33,10 @@ async function loadStatsChart() {
 
     const stats = await apiGet("/dashboard/statistics");
     const data = stats.data;
-
     const ctx1 = document.getElementById("statsChart");
 
     new Chart(ctx1, {
-
         type: "bar",
-
         data: {
             labels: [
                 "Utilisateurs",
@@ -88,16 +81,13 @@ async function loadStatsChart() {
         }
     });
 
-    // =========================
+
     // DONUT CHART (vision globale)
-    // =========================
 
     const ctx2 = document.getElementById("statsPieChart");
 
     new Chart(ctx2, {
-
         type: "doughnut",
-
         data: {
             labels: [
                 "Utilisateurs",

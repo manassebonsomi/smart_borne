@@ -1,18 +1,8 @@
 async function login() {
-
-    const email =
-        document.getElementById(
-            "email"
-        ).value;
-
-    const password =
-        document.getElementById(
-            "password"
-        ).value;
-
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
     const result =
-        await apiPost(
-            "/auth/login",
+        await apiPost("/auth/login",
             {
                 email: email,
                 mot_de_passe: password
@@ -20,20 +10,12 @@ async function login() {
         );
 
     if (result.success) {
-
-        localStorage.setItem(
-            "token",
-            result.token
+        localStorage.setItem("token", result.token
         );
-
-        window.location =
-            "dashboard.html";
+        window.location = "dashboard.html";
     }
 
     else {
-
-        alert(
-            "Connexion refusée"
-        );
+        alert("Connexion refusée");
     }
 }

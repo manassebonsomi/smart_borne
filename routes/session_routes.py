@@ -1,128 +1,62 @@
 from flask import Blueprint
 from flask import request
 from flask import jsonify
-
-from controllers.session_controller \
-    import SessionController
+from controllers.session_controller import SessionController
 from services.session_manager import SessionManager
 
-session_bp = Blueprint(
-    "session",
-    __name__
-)
+session_bp = Blueprint("session", __name__)
 
 
-@session_bp.route(
-    "/session/start",
-    methods=["POST"]
-)
+@session_bp.route("/session/start", methods=["POST"])
 def start_session():
-
     data = request.json
-
-    session = \
-        SessionController.create(
-
-            data["id_utilisateur"],
-
-            data.get(
-                "id_campagne"
-            )
-        )
+    session = SessionController.create(data["id_utilisateur"], data.get("id_campagne"))
 
     return jsonify({
-
         "success": True,
-
         "data": {
-
-            "id_session":
-                session.id_session
+            "id_session": session.id_session
         }
     })
 
 
-@session_bp.route(
-    "/session/<int:id_session>",
-    methods=["GET"]
-)
+@session_bp.route("/session/<int:id_session>", methods=["GET"])
 def get_session(id_session):
-
-    session = \
-        SessionManager.get_session(
-            id_session
-        )
+    session = SessionManager.get_session(id_session)
 
     if not session:
-
         return jsonify({
-
-            "success":
-                False,
-
-            "message":
-                "Session introuvable"
-
+            "success": False,
+            "message": "Session introuvable"
         }), 404
 
     return jsonify({
-
-        "success":
-            True,
-
+        "success": True,
         "data": {
-
-            "id_session":
-                session.id_session,
-
-            "etat":
-                session.etat,
-
-            "question_actuelle":
-                session.question_actuelle,
-
-            "temps_inactivite":
-                session.temps_inactivite,
-
-            "sauvegardee":
-                session.sauvegardee
+            "id_session": session.id_session,
+            "etat": session.etat,
+            "question_actuelle": session.question_actuelle,
+            "temps_inactivite": session.temps_inactivite,
+            "sauvegardee": session.sauvegardee
         }
     })
 
-@session_bp.route(
-    "/session/save",
-    methods=["POST"]
-)
+@session_bp.route("/session/save", methods=["POST"])
 def save_progress():
-
     data = request.json
-
-    result = \
-        SessionController.save_progress(
-
+    result = SessionController.save_progress(
             data["id_session"],
-
             data["question"],
-
             data["etat"]
         )
 
     return jsonify(result)
 
 
-@session_bp.route(
-    "/session/pause",
-    methods=["POST"]
-)
+@session_bp.route("/session/pause", methods=["POST"])
 def pause_session():
-
     data = request.json
-
-    result = \
-        SessionController.pause(
-
-            data["id_session"]
-        )
+    result = SessionController.pause(data["id_session"])
 
     return jsonify(result)
 

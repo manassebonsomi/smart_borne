@@ -49,9 +49,9 @@ a.card {
 .stats { border-top: 5px solid #f59e0b; }
 
 
-/* =========================
+/*
    QUESTIONNAIRE CCC
-========================= */
+ */
 
 .progress-container {
     width: 90%;
@@ -76,9 +76,9 @@ a.card {
     transition: width 0.4s ease;
 }
 
-/* =========================
+/*
    NUMERO DE QUESTION
-========================= */
+*/
 
 #questionNumber {
     text-align: center;
@@ -88,9 +88,9 @@ a.card {
     margin-top: 20px;
 }
 
-/* =========================
+/*
    CARTE QUESTION
-========================= */
+ */
 
 #questionContainer {
     width: 90%;
@@ -107,9 +107,9 @@ a.card {
     animation: questionFade 0.4s ease;
 }
 
-/* =========================
+/*
    TEXTE QUESTION
-========================= */
+*/
 
 .question-text {
     font-size: 24px;
@@ -119,9 +119,9 @@ a.card {
     margin-bottom: 25px;
 }
 
-/* =========================
+/*
    REPONSES
-========================= */
+ */
 
 .answer-option {
     display: block;
@@ -148,9 +148,9 @@ a.card {
     font-weight: 600;
 }
 
-/* =========================
+/*
    BOUTONS NAVIGATION
-========================= */
+ */
 
 #prevBtn,
 #nextBtn {
@@ -200,9 +200,9 @@ a.card {
     );
 }
 
-/* =========================
+/*
    CONTENEUR BOUTONS
-========================= */
+ */
 
 .question-actions {
     width: 90%;
@@ -213,9 +213,9 @@ a.card {
     margin-top: 20px;
 }
 
-/* =========================
+/*
    ANIMATION
-========================= */
+ */
 
 @keyframes questionFade {
 
@@ -230,9 +230,9 @@ a.card {
     }
 }
 
-/* =========================
+/*
    RESPONSIVE
-========================= */
+ */
 
 @media (max-width: 768px) {
 

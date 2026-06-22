@@ -1,6 +1,6 @@
-/* =========================
+/*
    BASE GLOBALE
-========================= */
+ */
 
 body {
     font-family: "Segoe UI", Roboto, Arial, sans-serif;
@@ -9,9 +9,9 @@ body {
     color: #1f2937;
 }
 
-/* =========================
+/* =
    NAVIGATION (SIDEBAR STYLE)
-========================= */
+ */
 
 nav {
     background: #1e293b;
@@ -37,9 +37,9 @@ nav a:hover {
     transform: translateY(-2px);
 }
 
-/* =========================
+/*
    TITRES
-========================= */
+ */
 
 h1 {
     text-align: center;
@@ -48,9 +48,9 @@ h1 {
     color: #111827;
 }
 
-/* =========================
+/*
    CONTAINER LOGIN
-========================= */
+ */
 
 .container {
     width: 420px;
@@ -61,9 +61,7 @@ h1 {
     box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
-/* =========================
-   INPUTS
-========================= */
+/* INPUTS */
 
 input {
     width: 100%;
@@ -81,9 +79,9 @@ input:focus {
     box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
 }
 
-/* =========================
+/*
    BUTTONS
-========================= */
+ */
 
 button {
     padding: 12px;
@@ -102,9 +100,9 @@ button:hover {
     box-shadow: 0 10px 20px rgba(37,99,235,0.25);
 }
 
-/* =========================
+/*
    TABLES PRO
-========================= */
+ */
 
 table {
     width: 95%;
@@ -134,9 +132,9 @@ tr:hover {
     background: #f1f5f9;
 }
 
-/* =========================
-   STATS DASHBOARD (optionnel)
-========================= */
+/*
+   STATS DASHBOARD
+    */
 
 #stats {
     display: grid;
@@ -193,9 +191,9 @@ canvas {
     transform: translateY(-5px);
 }
 
-/* =========================
+/*
    ANIMATION
-========================= */
+*/
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -234,9 +232,9 @@ canvas {
     min-height: 50px;
 }
 
-/* =========================
+/*
    RESPONSIVE
-========================= */
+    */
 
 @media (max-width: 768px) {
     .container {

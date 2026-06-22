@@ -226,7 +226,7 @@ INSERT INTO ville(nom_ville)
 VALUES ('Kinshasa'), ('Matadi'), ('Goma'), ('Lubumbashi'), ('Mbandaka'), ('Kisangani'), ('Kananga'), ('Bukavu');
 
 INSERT INTO categorie_question(nom_categorie)
-VALUES ('Téléphone'), ('Internet'), ('Scratch'), ('Python'), ('Robotique'), ('Cybersécurité'), ('Réseaux sociaux');
+VALUES ('Créativité'), ('Logique'), ('Programmation'), ('Leadership'), ('Numérique'), ('Téléphone'), ('Internet'), ('Scratch'), ('Python'), ('Robotique'), ('Cybersécurité'), ('Réseaux sociaux');
 
 INSERT INTO parcours(nom_parcours, description)
 VALUES ('Découverte Numérique', 'Initiation aux outils numériques'),
