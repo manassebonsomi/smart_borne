@@ -195,10 +195,6 @@ Exécuter :
 
 python create_tables.py
 
-ou
-
-flask db upgrade
-
 ---
 
 # Lancement du Serveur
