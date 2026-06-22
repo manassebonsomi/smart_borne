@@ -62,73 +62,58 @@ class RecommendationEngine:
         # ANALYSE DES REPONSES
 
         for reponse in reponses:
-            r = str(reponse["valeur"]).lower()
-            # categorie = reponse["categorie"]
 
-            # Créativité
+            valeur = str(reponse["valeur"]).upper()
 
-            if any(
-                mot in r
-                for mot in [
-                    "dessin",
-                    "imaginer",
-                    "inventer",
-                    "créer",
-                    "créatif"
-                ]
-            ):
-                scores["Scratch Junior"] += 10
-                scores["Scratch Avancé"] += 15
+            points = 0
 
-            # Logique
-            if any(
-                mot in r
-                for mot in [
-                    "logique",
-                    "énigme",
-                    "problème",
-                    "réflexion"
-                ]
-            ):
-                scores["Python Débutant"] += 15
-                scores["Mentor Junior"] += 10
+            if valeur == "NON":
+                points = 0
 
-            # Programmation
-            if any(
-                mot in r
-                for mot in [
-                    "coder",
-                    "programmer",
-                    "application",
-                    "site web"
-                ]
-            ):
-                scores["Python Débutant"] += 25
+            elif valeur == "UN PEU":
+                points = 2
 
-            # Leadership
-            if any(
-                mot in r
-                for mot in [
-                    "enseigner",
-                    "diriger",
-                    "équipe",
-                    "leader"
-                ]
-            ):
-                scores["Mentor Junior"] += 25
+            elif valeur == "MOYEN":
+                points = 3
 
-            # Numérique
-            if any(
-                mot in r
-                for mot in [
-                    "ordinateur",
-                    "internet",
-                    "numérique",
-                    "technologie"
-                ]
-            ):
-                scores["Découverte Numérique"] += 15
-                scores["Scratch Junior"] += 10
+            elif valeur == "BEAUCOUP":
+                points = 5
+
+            elif valeur == "OUI":
+                points = 5
+
+            categorie = reponse["categorie"]
+
+            # Catégorie 1
+            # Découverte Numérique
+
+            if categorie == 8:
+                scores["Découverte Numérique"] += points
+
+            # Catégorie 2
+            # Scratch Junior
+
+            elif categorie == 9:
+                scores["Scratch Junior"] += points
+
+            # Catégorie 3
+            # Scratch Avancé
+
+            elif categorie == 10:
+                scores["Scratch Avancé"] += points
+
+            # Catégorie 4
+            # Python Débutant
+
+            elif categorie == 11:
+                scores["Python Débutant"] += points
+
+
+            # Catégorie 5
+            # Mentor Junior
+
+            elif categorie == 12:
+                scores["Mentor Junior"] += points
 
         # RECHERCHE DU MEILLEUR SCORE
         parcours = max(

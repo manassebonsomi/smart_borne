@@ -79,19 +79,58 @@ function showQuestion() {
     const savedAnswer = localStorage.getItem(
             "answer_" + currentQuestion.id_question) || "";
 
+    selectedValue = savedAnswer;
+
     document.getElementById("questionNumber").innerHTML =
         `Question ${current + 1 } / ${questions.length }`;
 
     document.getElementById("questionContainer").innerHTML =
         `
         <h2>
-            ${ currentQuestion.texte_question }
+            ${currentQuestion.texte_question}
         </h2>
 
-        <textarea id="answer" class="answer-box" placeholder="Votre réponse...">${savedAnswer}</textarea>`;
+        <div class="answer-buttons">
+
+            <button onclick="selectAnswer('NON')">
+                Non
+            </button>
+
+            <button onclick="selectAnswer('UN PEU')">
+                Un peu
+            </button>
+
+            <button onclick="selectAnswer('MOYEN')">
+                Moyen
+            </button>
+
+            <button onclick="selectAnswer('BEAUCOUP')">
+                Beaucoup
+            </button>
+
+            <button onclick="selectAnswer('OUI')">
+                Oui
+            </button>
+
+        </div>
+
+    <div id="selectedAnswer">
+
+        ${savedAnswer}
+
+    </div>
+    `;
     updateProgressBar();
 }
 
+function selectAnswer(value) {
+
+    selectedValue = value;
+
+    document.getElementById("selectedAnswer").innerHTML =
+        "Réponse sélectionnée : " +
+        value;
+}
 
 /*
 
@@ -111,8 +150,12 @@ SAUVEGARDE REPONSE
 */
 
 async function saveAnswer() {
-    selectedValue =
-        document.getElementById("answer").value.trim();
+    if (!selectedValue) {
+    selectedValue = localStorage.getItem(
+            "answer_" +
+            currentQuestion.id_question
+        );
+    }
     if (selectedValue === "") {
         alert("Veuillez répondre");
         return false;
