@@ -84,35 +84,35 @@ class RecommendationEngine:
 
             categorie = reponse["categorie"]
 
-            # Catégorie 1
+            # Catégorie 1 (ID = 1)
             # Découverte Numérique
 
-            if categorie == 8:
+            if categorie == 1:
                 scores["Découverte Numérique"] += points
 
-            # Catégorie 2
+            # Catégorie 2 (ID = 2)
             # Scratch Junior
 
-            elif categorie == 9:
+            elif categorie == 2:
                 scores["Scratch Junior"] += points
 
-            # Catégorie 3
+            # Catégorie 3 (ID = 3)
             # Scratch Avancé
 
-            elif categorie == 10:
+            elif categorie == 3:
                 scores["Scratch Avancé"] += points
 
-            # Catégorie 4
+            # Catégorie 4 (ID = 4)
             # Python Débutant
 
-            elif categorie == 11:
+            elif categorie == 4:
                 scores["Python Débutant"] += points
 
 
-            # Catégorie 5
+            # Catégorie 5 (ID = 5)
             # Mentor Junior
 
-            elif categorie == 12:
+            elif categorie == 5:
                 scores["Mentor Junior"] += points
 
         # RECHERCHE DU MEILLEUR SCORE
