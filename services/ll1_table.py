@@ -3,8 +3,7 @@
 from services.grammar import (
     GRAMMAR,
     EPSILON,
-    EOF,
-    is_non_terminal
+    EOF
 )
 
 from services.grammar_analyzer import (
@@ -49,7 +48,6 @@ class LL1Table:
     def build(cls):
 
         first = GrammarAnalyzer.compute_first()
-
         follow = GrammarAnalyzer.compute_follow()
 
         table = {
@@ -85,7 +83,7 @@ class LL1Table:
                     )
 
                 # --------------------------------------------------
-                # FOLLOW(A) si epsilon
+                # FOLLOW(A) SI EPSILON
                 # --------------------------------------------------
 
                 if EPSILON in first_alpha:
@@ -117,7 +115,9 @@ class LL1Table:
         production
     ):
 
-        if terminal in table[non_terminal]:
+        if terminal in table[
+            non_terminal
+        ]:
 
             existing = table[
                 non_terminal
@@ -137,7 +137,7 @@ class LL1Table:
         ][terminal] = production
 
     # ==========================================================
-    # GET TABLE
+    # OBTENIR TABLE
     # ==========================================================
 
     @classmethod
@@ -150,7 +150,7 @@ class LL1Table:
         return cls._table
 
     # ==========================================================
-    # PRODUCTION
+    # OBTENIR UNE PRODUCTION
     # ==========================================================
 
     @classmethod
@@ -178,22 +178,57 @@ class LL1Table:
 
         try:
 
-            cls.build()
+            table = cls.build()
 
             return {
                 "success": True,
                 "message":
                     "La grammaire est LL(1).",
                 "table":
-                    cls._table
+                    table
             }
 
-        except GrammarConflictError as e:
+        except GrammarConflictError as error:
+
+            cls._table = None
 
             return {
                 "success": False,
-                "message": str(e)
+                "error":
+                    "GRAMMAR_CONFLICT",
+                "message":
+                    str(error)
             }
+
+    # ==========================================================
+    # RESET
+    # ==========================================================
+
+    @classmethod
+    def reset(cls):
+
+        cls._table = None
+
+    # ==========================================================
+    # TERMINAUX DE LA TABLE
+    # ==========================================================
+
+    @classmethod
+    def get_terminals(cls):
+
+        table = cls.get_table()
+
+        terminals = set()
+
+        for entries in table.values():
+
+            terminals.update(
+                entries.keys()
+            )
+
+        terminals.add(EOF)
+
+        return terminals
 
     # ==========================================================
     # AFFICHAGE
@@ -211,25 +246,21 @@ class LL1Table:
 
             table = cls.get_table()
 
-        except GrammarConflictError as e:
+        except GrammarConflictError as error:
 
             print()
             print(
                 "ERREUR : "
-                + str(e)
+                + str(error)
             )
 
             return
 
-        terminals = set()
+        terminals = cls.get_terminals()
 
-        for entries in table.values():
-
-            terminals.update(
-                entries.keys()
-            )
-
-        terminals = sorted(terminals)
+        terminals = sorted(
+            terminals
+        )
 
         print()
 
@@ -244,11 +275,15 @@ class LL1Table:
 
         print(header)
 
-        print("-" * len(header))
+        print(
+            "-" * len(header)
+        )
 
         for non_terminal in GRAMMAR:
 
-            row = non_terminal.ljust(30)
+            row = (
+                non_terminal.ljust(30)
+            )
 
             row += " | "
 
@@ -267,7 +302,9 @@ class LL1Table:
                     text = (
                         non_terminal
                         + " → "
-                        + " ".join(production)
+                        + " ".join(
+                            production
+                        )
                     )
 
                 else:
@@ -278,7 +315,9 @@ class LL1Table:
                     text.ljust(25)
                 )
 
-            row += " | ".join(cells)
+            row += " | ".join(
+                cells
+            )
 
             print(row)
 

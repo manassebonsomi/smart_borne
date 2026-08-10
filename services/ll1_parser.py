@@ -1,9 +1,14 @@
 # services/ll1_parser.py
 
 from services.grammar import (
+    GRAMMAR,
     START_SYMBOL,
     EOF,
-    is_non_terminal
+    EPSILON
+)
+
+from services.grammar_analyzer import (
+    GrammarAnalyzer
 )
 
 from services.ll1_table import (
@@ -18,8 +23,9 @@ class LL1Parser:
     # PARSE
     # ==========================================================
 
-    @staticmethod
+    @classmethod
     def parse(
+        cls,
         tokens,
         return_trace=False
     ):
@@ -27,14 +33,12 @@ class LL1Parser:
         trace = []
 
         # ------------------------------------------------------
-        # Vérification de la table
+        # VÉRIFICATION TABLE LL(1)
         # ------------------------------------------------------
 
-        try:
+        validation = LL1Table.validate()
 
-            table = LL1Table.get_table()
-
-        except GrammarConflictError:
+        if not validation["success"]:
 
             result = {
                 "success": False,
@@ -43,13 +47,16 @@ class LL1Parser:
                 "message":
                     "La grammaire contient "
                     "un conflit LL(1).",
-                "trace": trace
+                "trace":
+                    trace
             }
 
-            return result if return_trace else False
+            return result
+
+        table = validation["table"]
 
         # ------------------------------------------------------
-        # Tokens
+        # VÉRIFICATION TOKENS
         # ------------------------------------------------------
 
         if not tokens:
@@ -59,14 +66,37 @@ class LL1Parser:
                 "error":
                     "EMPTY_INPUT",
                 "message":
-                    "Aucune commande fournie.",
-                "trace": trace
+                    "Aucun token fourni.",
+                "trace":
+                    trace
             }
 
-            return result if return_trace else False
+            return result
 
         # ------------------------------------------------------
-        # Pile
+        # COPIE DES TOKENS
+        # ------------------------------------------------------
+
+        token_list = list(tokens)
+
+        # Le lexer ajoute normalement EOF.
+        # On vérifie néanmoins sa présence.
+
+        if token_list[-1].type != EOF:
+
+            token_list.append(
+                type(
+                    "EOFToken",
+                    (),
+                    {
+                        "type": EOF,
+                        "value": EOF
+                    }
+                )()
+            )
+
+        # ------------------------------------------------------
+        # PILE LL(1)
         # ------------------------------------------------------
 
         stack = [
@@ -77,229 +107,150 @@ class LL1Parser:
         index = 0
 
         # ------------------------------------------------------
-        # Analyse
+        # BOUCLE PRINCIPALE
         # ------------------------------------------------------
 
         while stack:
 
             top = stack.pop()
 
-            if index >= len(tokens):
+            lookahead = token_list[
+                index
+            ]
 
-                result = {
-                    "success": False,
-                    "error":
-                        "UNEXPECTED_END",
-                    "message":
-                        "Fin inattendue de la commande.",
-                    "trace": trace
-                }
-
-                return result if return_trace else False
-
-            lookahead = tokens[index]
-
-            lookahead_type = lookahead.type
+            lookahead_type = (
+                lookahead.type
+            )
 
             # --------------------------------------------------
-            # Trace état initial
+            # TRACE
             # --------------------------------------------------
 
-            trace.append({
-
+            trace_step = {
                 "step":
                     len(trace) + 1,
 
                 "stack":
-                    stack[:] + [top],
+                    list(reversed(stack))
+                    + [top],
 
                 "input":
                     [
                         token.type
-                        for token in tokens[index:]
+                        for token in
+                        token_list[index:]
                     ],
 
-                "action":
-                    "LECTURE",
-
-                "top":
-                    top,
-
                 "lookahead":
-                    lookahead_type
-            })
+                    lookahead_type,
 
-            # ==================================================
-            # CAS 1 : $
-            # ==================================================
+                "action":
+                    None
+            }
 
-            if top == EOF:
+            # --------------------------------------------------
+            # ACCEPTATION
+            # --------------------------------------------------
 
-                if lookahead_type == EOF:
+            if (
+                top == EOF
+                and
+                lookahead_type == EOF
+            ):
 
-                    index += 1
+                trace_step[
+                    "action"
+                ] = "ACCEPT"
 
-                    trace.append({
-
-                        "step":
-                            len(trace) + 1,
-
-                        "stack":
-                            stack[:],
-
-                        "input":
-                            [],
-
-                        "action":
-                            "ACCEPTER"
-                    })
-
-                    result = {
-
-                        "success":
-                            True,
-
-                        "message":
-                            "Commande acceptée.",
-
-                        "trace":
-                            trace
-                    }
-
-                    return (
-                        result
-                        if return_trace
-                        else True
-                    )
+                trace.append(
+                    trace_step
+                )
 
                 result = {
-
-                    "success":
-                        False,
-
-                    "error":
-                        "UNEXPECTED_TOKEN",
-
+                    "success": True,
                     "message":
-                        (
-                            f"Fin attendue, "
-                            f"mais reçu "
-                            f"{lookahead_type}."
-                        ),
-
+                        "Commande acceptée.",
                     "trace":
                         trace
                 }
 
-                return (
-                    result
-                    if return_trace
-                    else False
+                if return_trace:
+                    return result
+
+                return True
+
+            # --------------------------------------------------
+            # EPSILON
+            # --------------------------------------------------
+
+            if top == EPSILON:
+
+                trace_step[
+                    "action"
+                ] = "EPSILON"
+
+                trace.append(
+                    trace_step
                 )
 
-            # ==================================================
-            # CAS 2 : TERMINAL
-            # ==================================================
+                continue
 
-            if not is_non_terminal(top):
+            # --------------------------------------------------
+            # TERMINAL
+            # --------------------------------------------------
+
+            if top not in GRAMMAR:
 
                 if top == lookahead_type:
 
+                    trace_step[
+                        "action"
+                    ] = (
+                        f"Correspondance : "
+                        f"{top}"
+                    )
+
+                    trace.append(
+                        trace_step
+                    )
+
                     index += 1
-
-                    trace.append({
-
-                        "step":
-                            len(trace) + 1,
-
-                        "stack":
-                            stack[:],
-
-                        "input":
-                            [
-                                token.type
-                                for token in tokens[index:]
-                            ],
-
-                        "action":
-                            (
-                                f"CORRESPONDANCE "
-                                f"{top}"
-                            )
-                    })
 
                     continue
 
-                # ----------------------------------------------
-                # Erreur terminal
-                # ----------------------------------------------
+                # --------------------------------------------------
+                # ERREUR TERMINALE
+                # --------------------------------------------------
+
+                expected = [
+                    top
+                ]
+
+                trace_step[
+                    "action"
+                ] = (
+                    f"ERREUR : attendu "
+                    f"{top}, reçu "
+                    f"{lookahead_type}"
+                )
+
+                trace.append(
+                    trace_step
+                )
 
                 result = {
-
-                    "success":
-                        False,
+                    "success": False,
 
                     "error":
                         "SYNTAX_ERROR",
 
                     "message":
                         (
-                            f"Erreur syntaxique : "
-                            f"attendu '{top}', "
+                            "Erreur syntaxique : "
+                            f"attendu "
+                            f"{top}, "
                             f"reçu "
-                            f"'{lookahead_type}'."
-                        ),
-
-                    "expected":
-                        [top],
-
-                    "received":
-                        lookahead_type,
-
-                    "trace":
-                        trace
-                }
-
-                return (
-                    result
-                    if return_trace
-                    else False
-                )
-
-            # ==================================================
-            # CAS 3 : NON-TERMINAL
-            # ==================================================
-
-            production = table.get(
-                top,
-                {}
-            ).get(
-                lookahead_type
-            )
-
-            if production is None:
-
-                expected = sorted(
-                    table.get(
-                        top,
-                        {}
-                    ).keys()
-                )
-
-                result = {
-
-                    "success":
-                        False,
-
-                    "error":
-                        "SYNTAX_ERROR",
-
-                    "message":
-                        (
-                            f"Aucune production "
-                            f"pour "
-                            f"M[{top}, "
-                            f"{lookahead_type}]."
+                            f"{lookahead_type}."
                         ),
 
                     "expected":
@@ -312,90 +263,256 @@ class LL1Parser:
                         trace
                 }
 
-                return (
-                    result
-                    if return_trace
-                    else False
+                if return_trace:
+                    return result
+
+                return False
+
+            # --------------------------------------------------
+            # NON-TERMINAL
+            # --------------------------------------------------
+
+            production = table.get(
+                top,
+                {}
+            ).get(
+                lookahead_type
+            )
+
+            # --------------------------------------------------
+            # AUCUNE PRODUCTION
+            # --------------------------------------------------
+
+            if production is None:
+
+                expected = sorted(
+                    table.get(
+                        top,
+                        {}
+                    ).keys()
                 )
 
+                trace_step[
+                    "action"
+                ] = (
+                    "ERREUR : "
+                    "aucune production"
+                )
+
+                trace.append(
+                    trace_step
+                )
+
+                result = {
+                    "success": False,
+
+                    "error":
+                        "SYNTAX_ERROR",
+
+                    "message":
+                        (
+                            f"Aucune production "
+                            f"pour {top} "
+                            f"avec le lookahead "
+                            f"{lookahead_type}."
+                        ),
+
+                    "non_terminal":
+                        top,
+
+                    "expected":
+                        expected,
+
+                    "received":
+                        lookahead_type,
+
+                    "trace":
+                        trace
+                }
+
+                if return_trace:
+                    return result
+
+                return False
+
             # --------------------------------------------------
-            # Epsilon
+            # APPLICATION PRODUCTION
             # --------------------------------------------------
 
-            if len(production) == 0:
+            trace_step[
+                "action"
+            ] = (
+                f"{top} → "
+                + " ".join(
+                    production
+                )
+            )
 
-                trace.append({
-
-                    "step":
-                        len(trace) + 1,
-
-                    "stack":
-                        stack[:],
-
-                    "input":
-                        [
-                            token.type
-                            for token in tokens[index:]
-                        ],
-
-                    "action":
-                        f"{top} → ε"
-                })
-
-                continue
+            trace.append(
+                trace_step
+            )
 
             # --------------------------------------------------
-            # Développement production
+            # EMPILER À L'ENVERS
             # --------------------------------------------------
 
             for symbol in reversed(
                 production
             ):
 
-                stack.append(symbol)
+                if symbol != EPSILON:
 
-            trace.append({
-
-                "step":
-                    len(trace) + 1,
-
-                "stack":
-                    stack[:],
-
-                "input":
-                    [
-                        token.type
-                        for token in tokens[index:]
-                    ],
-
-                "action":
-                    (
-                        f"{top} → "
-                        f"{' '.join(production)}"
+                    stack.append(
+                        symbol
                     )
-            })
 
-        # ======================================================
-        # FIN
-        # ======================================================
+        # ------------------------------------------------------
+        # PILE VIDE MAIS TOKENS RESTANTS
+        # ------------------------------------------------------
+
+        if index < len(token_list):
+
+            remaining = [
+                token.type
+                for token in
+                token_list[index:]
+            ]
+
+            result = {
+                "success": False,
+
+                "error":
+                    "UNEXPECTED_INPUT",
+
+                "message":
+                    (
+                        "Entrée inattendue "
+                        "après analyse."
+                    ),
+
+                "remaining":
+                    remaining,
+
+                "trace":
+                    trace
+            }
+
+            if return_trace:
+                return result
+
+            return False
+
+        # ------------------------------------------------------
+        # ERREUR GÉNÉRIQUE
+        # ------------------------------------------------------
 
         result = {
-
-            "success":
-                False,
+            "success": False,
 
             "error":
                 "PARSER_ERROR",
 
             "message":
-                "Le parseur s'est terminé de manière inattendue.",
+                "Erreur inconnue du parseur.",
 
             "trace":
                 trace
         }
 
-        return (
-            result
-            if return_trace
-            else False
+        if return_trace:
+            return result
+
+        return False
+
+    # ==========================================================
+    # AFFICHAGE TRACE
+    # ==========================================================
+
+    @classmethod
+    def display_trace(cls, result):
+
+        trace = result.get(
+            "trace",
+            []
         )
+
+        print()
+        print("=" * 80)
+        print("TRACE LL(1)")
+        print("=" * 80)
+
+        if not trace:
+
+            print(
+                "Aucune trace disponible."
+            )
+
+            return
+
+        for step in trace:
+
+            print()
+            print(
+                f"Étape "
+                f"{step['step']}"
+            )
+
+            print(
+                "Pile :"
+            )
+
+            print(
+                "  "
+                + " ".join(
+                    step["stack"]
+                )
+            )
+
+            print(
+                "Entrée restante :"
+            )
+
+            print(
+                "  "
+                + " ".join(
+                    step["input"]
+                )
+            )
+
+            print(
+                "Lookahead :"
+            )
+
+            print(
+                "  "
+                + step["lookahead"]
+            )
+
+            print(
+                "Action :"
+            )
+
+            print(
+                "  "
+                + str(
+                    step["action"]
+                )
+            )
+
+        print()
+
+        if result.get(
+            "success"
+        ):
+
+            print(
+                "RESULTAT : "
+                "ACCEPTATION"
+            )
+
+        else:
+
+            print(
+                "RESULTAT : "
+                "ERREUR"
+            )
