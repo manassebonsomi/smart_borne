@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d46cc552-6db7-48b4-b497-e7156a916465" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/services/lexer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_lexer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test_parser_complet.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/ll1_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/ll1_parser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

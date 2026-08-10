@@ -44,8 +44,7 @@ class LL1Parser:
                 "success": False,
                 "error": "GRAMMAR_CONFLICT",
                 "message":
-                    "La grammaire contient "
-                    "un conflit LL(1).",
+                    "La grammaire contient un conflit LL(1).",
                 "errors": [],
                 "trace": trace
             }
@@ -63,18 +62,18 @@ class LL1Parser:
 
         if not tokens:
 
+            error = {
+                "type": "EMPTY_INPUT",
+                "message": "Aucun token fourni."
+            }
+
+            errors.append(error)
+
             result = {
                 "success": False,
                 "error": "EMPTY_INPUT",
-                "message":
-                    "Aucun token fourni.",
-                "errors": [
-                    {
-                        "type": "EMPTY_INPUT",
-                        "message":
-                            "Aucun token fourni."
-                    }
-                ],
+                "message": "Aucun token fourni.",
+                "errors": errors,
                 "trace": trace
             }
 
@@ -90,7 +89,7 @@ class LL1Parser:
         token_list = list(tokens)
 
         # ------------------------------------------------------
-        # VÉRIFICATION EOF
+        # EOF
         # ------------------------------------------------------
 
         if token_list[-1].type != EOF:
@@ -123,9 +122,9 @@ class LL1Parser:
 
         follow = GrammarAnalyzer.compute_follow()
 
-        # ------------------------------------------------------
+        # ======================================================
         # BOUCLE PRINCIPALE
-        # ------------------------------------------------------
+        # ======================================================
 
         while stack:
 
@@ -135,27 +134,22 @@ class LL1Parser:
 
             if index >= len(token_list):
 
-                # Sécurité : normalement impossible car EOF
-                # doit toujours être présent.
+                error = {
+                    "type": "UNEXPECTED_EOF",
+                    "message":
+                        "Fin inattendue des tokens."
+                }
 
-                errors.append(
-                    {
-                        "type": "UNEXPECTED_EOF",
-                        "message":
-                            "Fin inattendue des tokens."
-                    }
-                )
+                errors.append(error)
 
-                trace.append(
-                    {
-                        "step": len(trace) + 1,
-                        "stack": list(reversed(stack)),
-                        "input": [],
-                        "lookahead": EOF,
-                        "action":
-                            "ERREUR : EOF inattendu"
-                    }
-                )
+                trace.append({
+                    "step": len(trace) + 1,
+                    "stack": list(reversed(stack)),
+                    "input": [],
+                    "lookahead": EOF,
+                    "action":
+                        "ERREUR : EOF inattendu."
+                })
 
                 break
 
@@ -166,7 +160,6 @@ class LL1Parser:
             top = stack.pop()
 
             lookahead = token_list[index]
-
             lookahead_type = lookahead.type
 
             # --------------------------------------------------
@@ -174,30 +167,26 @@ class LL1Parser:
             # --------------------------------------------------
 
             trace_step = {
-                "step":
-                    len(trace) + 1,
+                "step": len(trace) + 1,
 
                 "stack":
-                    list(reversed(stack))
-                    + [top],
+                    list(reversed(stack)) + [top],
 
                 "input":
                     [
                         token.type
-                        for token in
-                        token_list[index:]
+                        for token in token_list[index:]
                     ],
 
                 "lookahead":
                     lookahead_type,
 
-                "action":
-                    None
+                "action": None
             }
 
-            # --------------------------------------------------
+            # ==================================================
             # ACCEPTATION
-            # --------------------------------------------------
+            # ==================================================
 
             if (
                 top == EOF
@@ -205,74 +194,38 @@ class LL1Parser:
                 lookahead_type == EOF
             ):
 
-                if errors:
+                trace_step["action"] = (
+                    "ACCEPT"
+                    if not errors
+                    else
+                    "FIN DE L'ANALYSE AVEC ERREURS"
+                )
 
-                    trace_step["action"] = (
-                        "FIN DE L'ANALYSE "
-                        "AVEC ERREURS"
-                    )
+                trace.append(trace_step)
 
-                    trace.append(
-                        trace_step
-                    )
+                break
 
-                    result = {
-                        "success": False,
-                        "error": "SYNTAX_ERROR",
-                        "message":
-                            (
-                                f"Analyse terminée "
-                                f"avec {len(errors)} "
-                                f"erreur(s)."
-                            ),
-                        "errors": errors,
-                        "trace": trace
-                    }
-
-                else:
-
-                    trace_step["action"] = "ACCEPT"
-
-                    trace.append(
-                        trace_step
-                    )
-
-                    result = {
-                        "success": True,
-                        "message":
-                            "Commande acceptée.",
-                        "errors": [],
-                        "trace": trace
-                    }
-
-                if return_trace:
-                    return result
-
-                return result["success"]
-
-            # --------------------------------------------------
+            # ==================================================
             # EPSILON
-            # --------------------------------------------------
+            # ==================================================
 
             if top == EPSILON:
 
                 trace_step["action"] = "EPSILON"
 
-                trace.append(
-                    trace_step
-                )
+                trace.append(trace_step)
 
                 continue
 
-            # --------------------------------------------------
+            # ==================================================
             # TERMINAL
-            # --------------------------------------------------
+            # ==================================================
 
             if top not in GRAMMAR:
 
-                # ----------------------------------------------
+                # ------------------------------------------------
                 # CORRESPONDANCE
-                # ----------------------------------------------
+                # ------------------------------------------------
 
                 if top == lookahead_type:
 
@@ -280,17 +233,15 @@ class LL1Parser:
                         f"Correspondance : {top}"
                     )
 
-                    trace.append(
-                        trace_step
-                    )
+                    trace.append(trace_step)
 
                     index += 1
 
                     continue
 
-                # ----------------------------------------------
+                # ------------------------------------------------
                 # ERREUR TERMINALE
-                # ----------------------------------------------
+                # ------------------------------------------------
 
                 error = {
                     "type": "SYNTAX_ERROR",
@@ -307,16 +258,9 @@ class LL1Parser:
 
                 errors.append(error)
 
-                # ----------------------------------------------
-                # CAS EOF
-                # ----------------------------------------------
-                #
-                # Si EOF arrive alors qu'un terminal était
-                # attendu, on considère que le terminal manque.
-                #
-                # On retire simplement le terminal de la pile
-                # afin de continuer l'analyse.
-                # ----------------------------------------------
+                # ------------------------------------------------
+                # EOF
+                # ------------------------------------------------
 
                 if lookahead_type == EOF:
 
@@ -327,19 +271,13 @@ class LL1Parser:
                         f"terminal {top} ignoré."
                     )
 
-                    trace.append(
-                        trace_step
-                    )
+                    trace.append(trace_step)
 
                     continue
 
-                # ----------------------------------------------
-                # AUTRE TOKEN
-                # ----------------------------------------------
-                #
-                # On abandonne le terminal attendu et on avance
-                # dans l'entrée afin d'éviter une boucle infinie.
-                # ----------------------------------------------
+                # ------------------------------------------------
+                # TOKEN INATTENDU
+                # ------------------------------------------------
 
                 trace_step["action"] = (
                     f"ERREUR : attendu {top}, "
@@ -348,17 +286,15 @@ class LL1Parser:
                     f"token {lookahead_type} ignoré."
                 )
 
-                trace.append(
-                    trace_step
-                )
+                trace.append(trace_step)
 
                 index += 1
 
                 continue
 
-            # --------------------------------------------------
+            # ==================================================
             # NON-TERMINAL
-            # --------------------------------------------------
+            # ==================================================
 
             production = table.get(
                 top,
@@ -378,29 +314,19 @@ class LL1Parser:
                     + " ".join(production)
                 )
 
-                trace.append(
-                    trace_step
-                )
+                trace.append(trace_step)
 
-                # ----------------------------------------------
-                # EMPILER À L'ENVERS
-                # ----------------------------------------------
-
-                for symbol in reversed(
-                    production
-                ):
+                for symbol in reversed(production):
 
                     if symbol != EPSILON:
 
-                        stack.append(
-                            symbol
-                        )
+                        stack.append(symbol)
 
                 continue
 
-            # --------------------------------------------------
+            # ==================================================
             # AUCUNE PRODUCTION
-            # --------------------------------------------------
+            # ==================================================
 
             expected = sorted(
                 table.get(
@@ -427,14 +353,7 @@ class LL1Parser:
             errors.append(error)
 
             # --------------------------------------------------
-            # RÉCUPÉRATION LL(1)
-            # --------------------------------------------------
-            #
-            # Cas classique :
-            #
-            # si lookahead ∈ FOLLOW(A)
-            #
-            # alors on peut abandonner A.
+            # FOLLOW(A)
             # --------------------------------------------------
 
             non_terminal_follow = follow.get(
@@ -442,70 +361,41 @@ class LL1Parser:
                 set()
             )
 
-            if (
-                lookahead_type
-                in
-                non_terminal_follow
-            ):
+            if lookahead_type in non_terminal_follow:
 
                 trace_step["action"] = (
                     f"ERREUR : aucune production "
-                    f"pour {top} avec "
-                    f"le lookahead "
+                    f"pour {top} avec le lookahead "
                     f"{lookahead_type}. "
                     f"Récupération LL(1) : "
                     f"{lookahead_type} ∈ "
                     f"FOLLOW({top}), "
-                    f"{top} est abandonné."
+                    f"{top} abandonné."
                 )
 
-                trace.append(
-                    trace_step
-                )
-
-                # On ne remet pas le non-terminal dans
-                # la pile. On passe au symbole suivant.
+                trace.append(trace_step)
 
                 continue
 
             # --------------------------------------------------
             # EOF
             # --------------------------------------------------
-            #
-            # Si EOF est rencontré et n'appartient pas au
-            # FOLLOW du non-terminal, on abandonne quand même
-            # le non-terminal pour permettre à l'analyse
-            # de se terminer proprement.
-            # --------------------------------------------------
 
             if lookahead_type == EOF:
 
                 trace_step["action"] = (
                     f"ERREUR : aucune production "
-                    f"pour {top} avec "
-                    f"le lookahead EOF. "
+                    f"pour {top} avec EOF. "
                     f"Récupération : "
-                    f"abandon de {top}."
+                    f"{top} abandonné."
                 )
 
-                trace.append(
-                    trace_step
-                )
+                trace.append(trace_step)
 
                 continue
 
             # --------------------------------------------------
-            # SYNCHRONISATION PAR TOKEN
-            # --------------------------------------------------
-            #
-            # On cherche un token permettant de reprendre
-            # l'analyse.
-            #
-            # On avance jusqu'à :
-            #
-            # 1. trouver une production pour le non-terminal ;
-            # 2. trouver un token de FOLLOW ;
-            # 3. atteindre EOF.
+            # SYNCHRONISATION
             # --------------------------------------------------
 
             skipped = []
@@ -516,9 +406,7 @@ class LL1Parser:
                     token_list[index].type
                 )
 
-                # ----------------------------------------------
-                # Une production devient disponible
-                # ----------------------------------------------
+                # Une production est maintenant disponible.
 
                 if current_type in table.get(
                     top,
@@ -527,30 +415,24 @@ class LL1Parser:
 
                     break
 
-                # ----------------------------------------------
-                # Token de synchronisation FOLLOW
-                # ----------------------------------------------
+                # Token de synchronisation.
 
                 if current_type in non_terminal_follow:
 
                     break
 
-                # ----------------------------------------------
-                # EOF
-                # ----------------------------------------------
+                # EOF.
 
                 if current_type == EOF:
 
                     break
 
-                skipped.append(
-                    current_type
-                )
+                skipped.append(current_type)
 
                 index += 1
 
             # --------------------------------------------------
-            # TRACE RÉCUPÉRATION
+            # TRACE
             # --------------------------------------------------
 
             if skipped:
@@ -573,36 +455,21 @@ class LL1Parser:
                     f"{lookahead_type}."
                 )
 
-            trace.append(
-                trace_step
-            )
+            trace.append(trace_step)
 
-            # --------------------------------------------------
-            # IMPORTANT :
-            # --------------------------------------------------
-            #
-            # Le non-terminal a déjà été retiré de la pile.
-            # On continue avec le prochain symbole.
-            # --------------------------------------------------
+            # Le non-terminal est abandonné.
+            continue
 
         # ======================================================
-        # FIN DE L'ANALYSE
+        # VÉRIFICATION DE L'ENTRÉE RESTANTE
         # ======================================================
-
-        # ------------------------------------------------------
-        # TOKENS RESTANTS
-        # ------------------------------------------------------
 
         if index < len(token_list):
 
             remaining = [
                 token.type
-                for token in
-                token_list[index:]
+                for token in token_list[index:]
             ]
-
-            # Si les tokens restants ne sont pas simplement EOF,
-            # ils constituent une entrée inattendue.
 
             non_eof_remaining = [
                 token
@@ -615,8 +482,7 @@ class LL1Parser:
                 error = {
                     "type": "SYNTAX_ERROR",
                     "category": "UNEXPECTED_INPUT",
-                    "remaining":
-                        non_eof_remaining,
+                    "remaining": non_eof_remaining,
                     "message":
                         (
                             "Entrée inattendue "
@@ -624,29 +490,25 @@ class LL1Parser:
                         )
                 }
 
-                errors.append(
-                    error
-                )
+                errors.append(error)
 
-                trace.append(
-                    {
-                        "step": len(trace) + 1,
-                        "stack": [],
-                        "input": remaining,
-                        "lookahead":
-                            token_list[index].type,
-                        "action":
-                            (
-                                "ERREUR : entrée "
-                                "inattendue "
-                                "après analyse."
-                            )
-                    }
-                )
+                trace.append({
+                    "step": len(trace) + 1,
+                    "stack": [],
+                    "input": remaining,
+                    "lookahead":
+                        token_list[index].type,
+                    "action":
+                        (
+                            "ERREUR : entrée "
+                            "inattendue après "
+                            "analyse."
+                        )
+                })
 
-        # ------------------------------------------------------
+        # ======================================================
         # RÉSULTAT FINAL
-        # ------------------------------------------------------
+        # ======================================================
 
         if errors:
 
@@ -655,9 +517,8 @@ class LL1Parser:
                 "error": "SYNTAX_ERROR",
                 "message":
                     (
-                        f"Analyse terminée "
-                        f"avec {len(errors)} "
-                        f"erreur(s)."
+                        f"Analyse terminée avec "
+                        f"{len(errors)} erreur(s)."
                     ),
                 "errors": errors,
                 "trace": trace
@@ -674,6 +535,7 @@ class LL1Parser:
             }
 
         if return_trace:
+
             return result
 
         return result["success"]
@@ -707,13 +569,10 @@ class LL1Parser:
 
             print()
             print(
-                f"Étape "
-                f"{step['step']}"
+                f"Étape {step['step']}"
             )
 
-            print(
-                "Pile :"
-            )
+            print("Pile :")
 
             print(
                 "  "
@@ -722,9 +581,7 @@ class LL1Parser:
                 )
             )
 
-            print(
-                "Entrée restante :"
-            )
+            print("Entrée restante :")
 
             print(
                 "  "
@@ -733,18 +590,14 @@ class LL1Parser:
                 )
             )
 
-            print(
-                "Lookahead :"
-            )
+            print("Lookahead :")
 
             print(
                 "  "
                 + step["lookahead"]
             )
 
-            print(
-                "Action :"
-            )
+            print("Action :")
 
             print(
                 "  "
@@ -777,8 +630,9 @@ class LL1Parser:
             ):
 
                 print()
+
                 print(
-                    f"  {index}. "
+                    f"{index}. "
                     f"{error.get('message')}"
                 )
 
@@ -788,18 +642,14 @@ class LL1Parser:
         # RESULTAT
         # ------------------------------------------------------
 
-        if result.get(
-            "success"
-        ):
+        if result.get("success"):
 
             print(
-                "RESULTAT : "
-                "ACCEPTATION"
+                "RESULTAT : ACCEPTATION"
             )
 
         else:
 
             print(
-                "RESULTAT : "
-                "ERREUR"
+                "RESULTAT : ERREUR"
             )
