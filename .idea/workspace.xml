@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d46cc552-6db7-48b4-b497-e7156a916465" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/grammaire_ll1.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_parser_ll1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test_error_recovery.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test_error_recovery.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/grammar_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/grammar_analyzer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/ll1_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/ll1_parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/ll1_table.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/ll1_table.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,14 +37,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Manasse/PycharmProjects/medical-system-api&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/Manasse/PycharmProjects/ccc_orientation_system/tests"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Manasse\PycharmProjects\ccc_orientation_system\frontend\borne\assets\css" />
