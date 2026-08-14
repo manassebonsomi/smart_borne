@@ -5,98 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d46cc552-6db7-48b4-b497-e7156a916465" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/01_cahier_des_charges.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/02_architecture_generale.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/03_diagramme_etats.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/04_modele_donnees.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/05_scripts_sql.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/06_grammaire_complete.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/07_first_follow.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/08_table_ll1.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/09_parseur_ll1.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/10_moteur_dialogue.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/11_module_recommandation.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/12_module_statistiques.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/13_gestion_erreurs.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/14_documentation_technique.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/15_guide_utilisateur.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/16_guide_formateur.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/17_rapport_tests.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/18_journal_execution.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/19_soutenance.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pytest.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/command_interaction.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/command_model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/command_pipeline.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/correction_config.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strengthen_database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_command_full_pipeline.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_command_interaction.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_command_pipeline_integration.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/archive/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/archive/test_command_builder.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/archive/test_command_controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/archive/test_command_corrector.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/archive/test_command_dispatcher.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/archive/test_command_handler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/archive/test_command_routes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/archive/test_command_suggester.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/archive/test_database_constraints.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/conftest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/database/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/database/test_database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/integration/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/integration/test_command_controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/integration/test_command_pipeline.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/integration/test_command_routes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/integration/test_integration.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/unit/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/unit/test_command_pipeline.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/unit/test_commands.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/unit/test_errors.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/unit/test_grammar.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/unit/test_lexer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/unit/test_ll1_table.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/unit/test_parser.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/unit/test_recommendation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/unit/test_sessions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/security.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/security.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/command_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/command_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exports/rapport_ccc.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/exports/rapport_ccc.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/admin/commandes.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/admin/commandes.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/assets/js/commandes.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/js/commandes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/campagne.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/campagne.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/categorie_question.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/categorie_question.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/commande.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/commande.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/question.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/question.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/recommandation.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/recommandation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/reponse.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/reponse.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/session.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/session.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/utilisateur.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/utilisateur.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/command_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/command_routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/command_corrector.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/command_corrector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/command_dispatcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/command_dispatcher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/command_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/command_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/command_interaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/command_interaction.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/command_suggester.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/command_suggester.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/grammar.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/grammar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/lexical_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/lexical_analyzer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/recommendation_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/recommendation_engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/reserved_words.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/reserved_words.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/token.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/token.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_3.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_4.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_error_recovery.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/archive/test_error_recovery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_lexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/archive/test_lexer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_parser_complet.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/archive/test_parser_complet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_parser_ll1.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/archive/test_parser_ll1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_error_recovery.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_grammar.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/command_builder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_lexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/command_corrector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_ll1_table.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/command_dispatcher.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/command_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/grammar_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/grammar_analyzer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/lexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/lexer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/ll1_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/ll1_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/ll1_table.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/ll1_table.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
