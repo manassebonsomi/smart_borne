@@ -32,7 +32,7 @@ class RecommendationService:
             db.session.commit()
 
         recommandation = Recommandation(
-                score=resultat["score"],
+                score=resultat["score_final"],
                 profil_detecte=resultat["parcours"],
                 commentaire="Recommandation générée automatiquement",
                 id_session=session.id_session,
