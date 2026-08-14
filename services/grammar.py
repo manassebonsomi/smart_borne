@@ -1,5 +1,3 @@
-# services/grammar.py
-
 """
 Grammaire LL(1) de la borne interactive CCC.
 
@@ -12,10 +10,7 @@ Notation :
 
 GRAMMAR = {
 
-    # ==========================================================
     # AXIOME
-    # ==========================================================
-
     "COMMANDE": [
         ["CMD_AFFICHER"],
         ["CMD_LANCER"],
@@ -28,10 +23,7 @@ GRAMMAR = {
         ["CMD_QUITTER"],
     ],
 
-    # ==========================================================
     # AFFICHER
-    # ==========================================================
-
     "CMD_AFFICHER": [
         ["AFFICHER", "SUJET_AFFICHAGE"]
     ],
@@ -41,10 +33,7 @@ GRAMMAR = {
         ["ERREURS"]
     ],
 
-    # ==========================================================
     # LANCER
-    # ==========================================================
-
     "CMD_LANCER": [
         ["LANCER", "SUJET_LANCER"]
     ],
@@ -54,10 +43,7 @@ GRAMMAR = {
         ["CAMPAGNE", "ECOLE"]
     ],
 
-    # ==========================================================
     # CHERCHER
-    # ==========================================================
-
     "CMD_CHERCHER": [
         ["CHERCHER", "SUJET_RECHERCHE"]
     ],
@@ -72,10 +58,7 @@ GRAMMAR = {
         ]
     ],
 
-    # ==========================================================
     # AJOUTER
-    # ==========================================================
-
     "CMD_AJOUTER": [
         ["AJOUTER", "SUJET_AJOUTER"]
     ],
@@ -84,10 +67,7 @@ GRAMMAR = {
         ["QUESTION"]
     ],
 
-    # ==========================================================
     # MODIFIER
-    # ==========================================================
-
     "CMD_MODIFIER": [
         ["MODIFIER", "SUJET_MODIFIER"]
     ],
@@ -96,10 +76,7 @@ GRAMMAR = {
         ["QUESTION", "NUMERO"]
     ],
 
-    # ==========================================================
     # SUPPRIMER
-    # ==========================================================
-
     "CMD_SUPPRIMER": [
         ["SUPPRIMER", "SUJET_SUPPRIMER"]
     ],
@@ -108,10 +85,7 @@ GRAMMAR = {
         ["QUESTION", "NUMERO"]
     ],
 
-    # ==========================================================
     # EXPORTER
-    # ==========================================================
-
     "CMD_EXPORTER": [
         ["EXPORTER", "SUJET_EXPORTER"]
     ],
@@ -120,10 +94,7 @@ GRAMMAR = {
         ["RAPPORT"]
     ],
 
-    # ==========================================================
     # RECOMMENCER
-    # ==========================================================
-
     "CMD_RECOMMENCER": [
         ["RECOMMENCER", "SUJET_RECOMMENCER"]
     ],
@@ -132,31 +103,18 @@ GRAMMAR = {
         ["SESSION"]
     ],
 
-    # ==========================================================
     # QUITTER
-    # ==========================================================
-
     "CMD_QUITTER": [
         ["QUITTER"]
     ]
 }
 
-
-# ==============================================================
 # CONFIGURATION
-# ==============================================================
-
 START_SYMBOL = "COMMANDE"
-
 EPSILON = "ε"
-
 EOF = "EOF"
 
-
-# ==============================================================
 # OUTILS
-# ==============================================================
-
 def get_non_terminals():
     """
     Retourne l'ensemble des non-terminaux.
@@ -169,20 +127,15 @@ def get_terminals():
     Retourne l'ensemble des terminaux utilisés par la grammaire.
     """
     non_terminals = get_non_terminals()
-
     terminals = set()
 
     for productions in GRAMMAR.values():
-
         for production in productions:
-
             for symbol in production:
-
                 if symbol not in non_terminals:
                     terminals.add(symbol)
 
     terminals.add(EOF)
-
     return terminals
 
 
@@ -197,7 +150,4 @@ def is_terminal(symbol):
     """
     Vérifie si un symbole est un terminal.
     """
-    return (
-        symbol not in GRAMMAR
-        and symbol != EPSILON
-    )
+    return (symbol not in GRAMMAR and symbol != EPSILON)

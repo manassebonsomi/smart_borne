@@ -1,11 +1,6 @@
 class Token:
 
-    def __init__(
-        self,
-        token_type,
-        value,
-        position=None
-    ):
+    def __init__(self, token_type, value, position=None):
         self.type = token_type
         self.value = value
         self.position = position
@@ -20,7 +15,6 @@ class Token:
         )
 
     def to_dict(self):
-
         return {
             "type": self.type,
             "value": self.value,

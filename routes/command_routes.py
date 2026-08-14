@@ -1,22 +1,49 @@
 from flask import Blueprint, request, jsonify
-from controllers.command_controller import CommandController
-from services.command_executor import CommandExecutor
-from models.commande import Commande
 
-from config.database import db
+from controllers.command_controller import CommandController
+from models.commande import Commande
 
 command_bp = Blueprint("command", __name__)
 
+# EXÉCUTER UNE COMMANDE
 @command_bp.route("/commands/execute", methods=["POST"])
 def execute_command():
-    data = request.json
-    result = CommandController.execute(data["command"])
 
-    return jsonify(result)
+    # VALIDATION JSON
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        return jsonify({
+            "success": False,
+            "error": "INVALID_JSON",
+            "message": "Le corps de la requête doit être un objet JSON."
+        }), 400
 
+    # VALIDATION COMMAND
+    command = data.get("command")
+    if command is None:
+        return jsonify({
+            "success": False,
+            "error": "MISSING_COMMAND",
+            "message": "Le champ 'command' est obligatoire."
+        }), 400
+
+    if not isinstance(command, str):
+        return jsonify({
+            "success": False,
+            "error": "INVALID_COMMAND",
+            "message": "Le champ 'command' doit être une chaîne de caractères."
+        }), 400
+
+    # EXÉCUTION
+    result = CommandController.execute(texte_commande=command, id_formateur=None, data=None)
+
+    # RÉSULTAT
+    return jsonify(result), 200
+
+# HISTORIQUE DES COMMANDES
 @command_bp.route("/commands", methods=["GET"])
 def get_commands():
-    commands = Commande.query.order_by(Commande.id_commande.desc()).all()
+    commands = (Commande.query.order_by(Commande.id_commande.desc()).all())
     return jsonify({
         "success": True,
         "data": [

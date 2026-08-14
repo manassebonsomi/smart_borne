@@ -8,6 +8,6 @@ class Commande(db.Model):
     texte_commande = db.Column(db.Text, nullable=False)
     tokens = db.Column(db.Text)
     resultat = db.Column(db.Text)
-    valide = db.Column(db.Boolean)
+    valide = db.Column(db.Boolean, nullable=False, default=False)
     date_execution = db.Column(db.DateTime,default=datetime.utcnow)
-    id_formateur = db.Column(db.Integer, db.ForeignKey("formateur.id_formateur"))
+    id_formateur = db.Column(db.Integer, db.ForeignKey("formateur.id_formateur"), index=True)

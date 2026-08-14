@@ -1,5 +1,3 @@
-# services/reserved_words.py
-
 RESERVED_WORDS = {
 
     "AFFICHER": "AFFICHER",

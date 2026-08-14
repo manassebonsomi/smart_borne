@@ -112,11 +112,15 @@ admin/
 
 borne/
 
+documentations/
+
 assets/
 
 database/
 
 migrations/
+
+test/
 
 rapport_ccc/
 

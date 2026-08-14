@@ -8,5 +8,5 @@ class Campagne(db.Model):
     description = db.Column(db.Text)
     date_debut = db.Column(db.Date)
     date_fin = db.Column(db.Date)
-    active = db.Column(db.Boolean, default=True)
+    active = db.Column(db.Boolean, default=True, nullable=False)
     sessions = db.relationship("SessionUtilisateur", backref="campagne", lazy=True)

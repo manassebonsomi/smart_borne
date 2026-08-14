@@ -1,8 +1,17 @@
 class RecommendationEngine:
 
+    PARCOURS = [
+        "Découverte Numérique",
+        "Scratch Junior",
+        "Scratch Avancé",
+        "Python Débutant",
+        "Mentor Junior"
+    ]
+
     @staticmethod
     def generate(age, niveau_scolaire, reponses):
 
+        # INITIALISATION DES SCORES
         scores = {
             "Découverte Numérique": 0,
             "Scratch Junior": 0,
@@ -28,8 +37,8 @@ class RecommendationEngine:
             scores["Mentor Junior"] += 40
 
         # NIVEAU SCOLAIRE
+        niveau = str(niveau_scolaire).strip().lower()
 
-        niveau = niveau_scolaire.lower()
         if niveau in [
             "1ere",
             "2eme",
@@ -59,70 +68,52 @@ class RecommendationEngine:
         else:
             scores["Mentor Junior"] += 20
 
-        # ANALYSE DES REPONSES
+        # ANALYSE DES RÉPONSES
+        for reponse in reponses or []:
 
-        for reponse in reponses:
+            if isinstance(reponse, dict):
+                valeur = reponse.get("valeur", "")
+            else:
+                valeur = reponse
 
-            valeur = str(reponse["valeur"]).upper()
+            valeur = str(valeur).strip().lower()
 
-            points = 0
+            # JEU
+            if "jeu" in valeur:
+                scores["Scratch Junior"] += 15
+                scores["Scratch Avancé"] += 10
 
-            if valeur == "NON":
-                points = 0
+            # ANIMATION
+            if "animation" in valeur:
+                scores["Scratch Junior"] += 15
+                scores["Scratch Avancé"] += 10
 
-            elif valeur == "UN PEU":
-                points = 2
+            # PROGRAMMER
+            if "programmer" in valeur:
+                scores["Python Débutant"] += 20
 
-            elif valeur == "MOYEN":
-                points = 3
+            # PROBLÈME
+            if ("problème" in valeur or "probleme" in valeur):
+                scores["Python Débutant"] += 15
+                scores["Mentor Junior"] += 10
 
-            elif valeur == "BEAUCOUP":
-                points = 5
+            # ENSEIGNER
+            if "enseigner" in valeur:
+                scores["Mentor Junior"] += 20
 
-            elif valeur == "OUI":
-                points = 5
+            # CRÉER
+            if ("créer" in valeur or "creer" in valeur):
+                scores["Scratch Avancé"] += 15
 
-            categorie = reponse["categorie"]
+        # DÉTERMINATION DU PARCOURS
+        parcours = max(scores, key=scores.get)
 
-            # Catégorie 1 (ID = 1)
-            # Découverte Numérique
-
-            if categorie == 1:
-                scores["Découverte Numérique"] += points
-
-            # Catégorie 2 (ID = 2)
-            # Scratch Junior
-
-            elif categorie == 2:
-                scores["Scratch Junior"] += points
-
-            # Catégorie 3 (ID = 3)
-            # Scratch Avancé
-
-            elif categorie == 3:
-                scores["Scratch Avancé"] += points
-
-            # Catégorie 4 (ID = 4)
-            # Python Débutant
-
-            elif categorie == 4:
-                scores["Python Débutant"] += points
-
-
-            # Catégorie 5 (ID = 5)
-            # Mentor Junior
-
-            elif categorie == 5:
-                scores["Mentor Junior"] += points
-
-        # RECHERCHE DU MEILLEUR SCORE
-        parcours = max(
-            scores,
-            key=scores.get
-        )
+        # SCORE FINAL
         score_final = scores[parcours]
 
+        # RÉSULTAT
         return {
-            "parcours":parcours,
-            "score":score_final
+            "parcours": parcours,
+            "scores": scores,
+            "score_final": score_final
         }
