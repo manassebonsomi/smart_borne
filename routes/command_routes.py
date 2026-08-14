@@ -5,6 +5,7 @@ from models.commande import Commande
 
 command_bp = Blueprint("command", __name__)
 
+
 # EXÉCUTER UNE COMMANDE
 @command_bp.route("/commands/execute", methods=["POST"])
 def execute_command():
