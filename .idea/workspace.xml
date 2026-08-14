@@ -6,15 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="d46cc552-6db7-48b4-b497-e7156a916465" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/command_corrector.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/command_corrector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/command_dispatcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/command_dispatcher.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/command_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/command_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/command_interaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/command_interaction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/command_suggester.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/command_suggester.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/grammar_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/grammar_analyzer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/lexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/lexer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/ll1_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/ll1_parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/ll1_table.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/ll1_table.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/unit/test_commands.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/unit/test_commands.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/unit/test_errors.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/unit/test_errors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/unit/test_grammar.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/unit/test_lexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/unit/test_lexer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/unit/test_ll1_table.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/unit/test_ll1_table.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/unit/test_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/unit/test_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/unit/test_recommendation.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/unit/test_recommendation.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -1,5 +1,3 @@
-# tests/unit/test_sessions.py
-
 import pytest
 
 from app import app
@@ -33,10 +31,6 @@ def session_db(app_context):
     db.session.commit()
 
 
-# ==========================================================
-# CREATE SESSION
-# ==========================================================
-
 def test_create_session(app_context):
 
     session = SessionManager.create_session(
@@ -52,10 +46,6 @@ def test_create_session(app_context):
     db.session.delete(session)
     db.session.commit()
 
-
-# ==========================================================
-# SAVE PROGRESS
-# ==========================================================
 
 def test_save_progress(session_db):
 
@@ -82,10 +72,6 @@ def test_save_progress_session_inexistante(app_context):
     assert result is None
 
 
-# ==========================================================
-# PAUSE
-# ==========================================================
-
 def test_pause_session(session_db):
 
     result = SessionManager.pause_session(
@@ -95,10 +81,6 @@ def test_pause_session(session_db):
     assert result is not None
     assert result.etat == "SESSION_INTERRUPTION"
 
-
-# ==========================================================
-# IS INTERRUPTED
-# ==========================================================
 
 def test_is_interrupted_true(session_db):
 
@@ -132,10 +114,6 @@ def test_is_interrupted_session_inexistante(app_context):
     )
 
 
-# ==========================================================
-# SET STATE
-# ==========================================================
-
 def test_set_state(session_db):
 
     result = SessionManager.set_state(
@@ -157,10 +135,6 @@ def test_set_state_session_inexistante(app_context):
     assert result is None
 
 
-# ==========================================================
-# RESUME
-# ==========================================================
-
 def test_resume_session(session_db):
 
     result = SessionManager.resume_session(
@@ -170,10 +144,6 @@ def test_resume_session(session_db):
     assert result is not None
     assert result.etat == "REPRISE_SESSION"
 
-
-# ==========================================================
-# UPDATE INACTIVITY
-# ==========================================================
 
 def test_update_inactivity(session_db):
 
@@ -189,10 +159,6 @@ def test_update_inactivity(session_db):
     assert result.temps_inactivite == 120
 
 
-# ==========================================================
-# GET SESSION
-# ==========================================================
-
 def test_get_session(session_db):
 
     result = SessionManager.get_session(
@@ -203,10 +169,6 @@ def test_get_session(session_db):
     assert result.id_session == session_db.id_session
 
 
-# ==========================================================
-# GET LAST SESSION
-# ==========================================================
-
 def test_get_last_session(session_db):
 
     result = SessionManager.get_last_session(
@@ -216,10 +178,6 @@ def test_get_last_session(session_db):
     assert result is not None
     assert result.id_session == session_db.id_session
 
-
-# ==========================================================
-# RESTART
-# ==========================================================
 
 def test_restart_session(session_db):
 
@@ -244,10 +202,6 @@ def test_restart_session(session_db):
     assert result.temps_inactivite == 0
 
 
-# ==========================================================
-# GET INTERRUPTED SESSION
-# ==========================================================
-
 def test_get_interrupted_session(session_db):
 
     SessionManager.pause_session(
@@ -262,10 +216,6 @@ def test_get_interrupted_session(session_db):
     assert result.id_session == session_db.id_session
     assert result.etat == "SESSION_INTERRUPTION"
 
-
-# ==========================================================
-# CAN RESUME
-# ==========================================================
 
 def test_can_resume_true(session_db):
 
@@ -286,10 +236,6 @@ def test_can_resume_false(session_db):
         is False
     )
 
-
-# ==========================================================
-# RESTORE SESSION
-# ==========================================================
 
 def test_restore_session(session_db):
 
@@ -312,10 +258,6 @@ def test_restore_session_inexistante(app_context):
 
     assert result is None
 
-
-# ==========================================================
-# FIN INACTIVITÉ
-# ==========================================================
 
 def test_finish_if_inactive(session_db):
 
@@ -359,10 +301,6 @@ def test_finish_if_inactive_session_inexistante(app_context):
     assert result is None
 
 
-# ==========================================================
-# CLOSE SESSION
-# ==========================================================
-
 def test_close_session(session_db):
 
     SessionManager.close_session(
@@ -377,10 +315,6 @@ def test_close_session(session_db):
     assert result.etat == "FIN_SESSION"
     assert result.date_fin is not None
 
-
-# ==========================================================
-# GET STATE
-# ==========================================================
 
 def test_get_state(session_db):
 

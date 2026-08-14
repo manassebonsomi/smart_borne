@@ -7,10 +7,6 @@ from services.grammar import (
 )
 
 
-# ==========================================================
-# VALIDATION DE LA TABLE
-# ==========================================================
-
 def test_ll1_table_validation():
 
     result = LL1Table.validate()
@@ -18,10 +14,6 @@ def test_ll1_table_validation():
     assert result["success"] is True
     assert "table" in result
 
-
-# ==========================================================
-# TABLE NON VIDE
-# ==========================================================
 
 def test_ll1_table_not_empty():
 
@@ -32,19 +24,10 @@ def test_ll1_table_not_empty():
     assert table
     assert len(table) > 0
 
-
-# ==========================================================
-# SYMBOLE DE DÉPART
-# ==========================================================
-
 def test_start_symbol_exists():
 
     assert START_SYMBOL in GRAMMAR
 
-
-# ==========================================================
-# EOF
-# ==========================================================
 
 def test_eof_defined():
 
@@ -52,23 +35,11 @@ def test_eof_defined():
     assert isinstance(EOF, str)
 
 
-# ==========================================================
-# EPSILON
-# ==========================================================
-
 def test_epsilon_defined():
 
     assert EPSILON is not None
     assert isinstance(EPSILON, str)
 
-
-# ==========================================================
-# PRODUCTIONS AFFICHER
-# ==========================================================
-
-# ==========================================================
-# COMMANDES DANS LA TABLE
-# ==========================================================
 
 def test_afficher_statistiques_production():
 

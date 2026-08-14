@@ -1,5 +1,3 @@
-# tests/unit/test_commands.py
-
 import pytest
 from unittest.mock import patch, MagicMock
 
@@ -10,10 +8,6 @@ from services.command_builder import CommandBuilder
 from services.command_dispatcher import CommandDispatcher
 from services.command_handler import CommandHandler
 
-
-# ==========================================================
-# OUTILS
-# ==========================================================
 
 def build_command(text):
     """
@@ -41,11 +35,6 @@ def run_pipeline(text, data=None):
 
     return correction
 
-
-# ==========================================================
-# COMMANDES VALIDES
-# ==========================================================
-
 @pytest.mark.parametrize(
     "command",
     [
@@ -71,10 +60,6 @@ def test_commandes_valides(command):
     assert correction["success"] is True
 
 
-# ==========================================================
-# AUTO CORRECTION
-# ==========================================================
-
 def test_auto_correct():
 
     result = CommandCorrector.correct(
@@ -87,10 +72,6 @@ def test_auto_correct():
     assert result["suggestion"] is not None or \
            result["corrected"] is not None
 
-
-# ==========================================================
-# SUGGESTION
-# ==========================================================
 
 def test_suggestion():
 
@@ -107,10 +88,6 @@ def test_suggestion():
     )
 
 
-# ==========================================================
-# REFORMULATION
-# ==========================================================
-
 def test_reformulation():
 
     result = CommandCorrector.correct(
@@ -120,11 +97,6 @@ def test_reformulation():
     assert result["mode"] == "REFORMULATE"
 
     assert result["success"] is False
-
-
-# ==========================================================
-# COMMANDE VIDE
-# ==========================================================
 
 @pytest.mark.parametrize(
     "command",
@@ -142,10 +114,6 @@ def test_commande_vide(command):
     assert result["mode"] == "REFORMULATE"
 
 
-# ==========================================================
-# BUILDER AFFICHER
-# ==========================================================
-
 def test_builder_afficher():
 
     command = build_command(
@@ -156,10 +124,6 @@ def test_builder_afficher():
     assert command.subject == "STATISTIQUES"
     assert command.arguments == {}
 
-
-# ==========================================================
-# BUILDER MODIFIER
-# ==========================================================
 
 def test_builder_modifier():
 
@@ -173,10 +137,6 @@ def test_builder_modifier():
     assert command.arguments["numero"] == 3
 
 
-# ==========================================================
-# BUILDER SUPPRIMER
-# ==========================================================
-
 def test_builder_supprimer():
 
     command = build_command(
@@ -188,10 +148,6 @@ def test_builder_supprimer():
 
     assert command.arguments["numero"] == 25
 
-
-# ==========================================================
-# BUILDER LANCER
-# ==========================================================
 
 def test_builder_lancer():
 
@@ -207,10 +163,6 @@ def test_builder_lancer():
     )
 
 
-# ==========================================================
-# BUILDER EXPORTER
-# ==========================================================
-
 def test_builder_exporter():
 
     command = build_command(
@@ -220,10 +172,6 @@ def test_builder_exporter():
     assert command.action == "EXPORTER"
     assert command.subject == "RAPPORT"
 
-
-# ==========================================================
-# BUILDER RECOMMENCER
-# ==========================================================
 
 def test_builder_recommencer():
 
@@ -235,10 +183,6 @@ def test_builder_recommencer():
     assert command.subject == "SESSION"
 
 
-# ==========================================================
-# BUILDER QUITTER
-# ==========================================================
-
 def test_builder_quitter():
 
     command = build_command(
@@ -248,10 +192,6 @@ def test_builder_quitter():
     assert command.action == "QUITTER"
     assert command.subject is None
 
-
-# ==========================================================
-# DISPATCHER
-# ==========================================================
 
 @pytest.mark.parametrize(
     "command_text, expected_action",
@@ -294,10 +234,6 @@ def test_dispatcher(command_text, expected_action):
     mock_handle.assert_called_once()
 
 
-# ==========================================================
-# DISPATCHER COMMANDE NONE
-# ==========================================================
-
 def test_dispatcher_none():
 
     result = CommandDispatcher.dispatch(None)
@@ -305,10 +241,6 @@ def test_dispatcher_none():
     assert result["success"] is False
     assert result["action"] == "INCONNUE"
 
-
-# ==========================================================
-# DISPATCHER ACTION INCONNUE
-# ==========================================================
 
 def test_dispatcher_action_inconnue():
 
@@ -323,10 +255,6 @@ def test_dispatcher_action_inconnue():
     assert result["success"] is False
     assert result["action"] == "INCONNUE"
 
-
-# ==========================================================
-# HANDLER AFFICHER STATISTIQUES
-# ==========================================================
 
 def test_handler_afficher_statistiques():
 
@@ -359,10 +287,6 @@ def test_handler_afficher_statistiques():
     mock_statistics.assert_called_once()
 
 
-# ==========================================================
-# HANDLER SUPPRIMER QUESTION
-# ==========================================================
-
 def test_handler_supprimer_question():
 
     handler = CommandHandler()
@@ -389,10 +313,6 @@ def test_handler_supprimer_question():
 
     mock_delete.assert_called_once_with(25)
 
-
-# ==========================================================
-# HANDLER MODIFIER QUESTION SANS DONNÉES
-# ==========================================================
 
 def test_handler_modifier_question_sans_donnees():
 
@@ -427,10 +347,6 @@ def test_handler_modifier_question_sans_donnees():
     assert result["question_id"] == 3
 
 
-# ==========================================================
-# HANDLER AJOUTER QUESTION SANS DONNÉES
-# ==========================================================
-
 def test_handler_ajouter_question_sans_donnees():
 
     handler = CommandHandler()
@@ -459,11 +375,6 @@ def test_handler_ajouter_question_sans_donnees():
     assert result["form_type"] == (
         "add_question"
     )
-
-
-# ==========================================================
-# HANDLER EXPORTER RAPPORT
-# ==========================================================
 
 def test_handler_exporter_rapport():
 
@@ -496,10 +407,6 @@ def test_handler_exporter_rapport():
 
     mock_export.assert_called_once()
 
-
-# ==========================================================
-# HANDLER RECOMMENCER SESSION
-# ==========================================================
 
 def test_handler_recommencer_session():
 
@@ -534,10 +441,6 @@ def test_handler_recommencer_session():
     mock_restart.assert_called_once_with(7)
 
 
-# ==========================================================
-# HANDLER QUITTER
-# ==========================================================
-
 def test_handler_quitter():
 
     handler = CommandHandler()
@@ -567,10 +470,6 @@ def test_handler_quitter():
 
     mock_close.assert_called_once_with(8)
 
-
-# ==========================================================
-# PIPELINE COMPLET — VALID
-# ==========================================================
 
 def test_full_command_pipeline_valid():
 
@@ -618,10 +517,6 @@ def test_full_command_pipeline_valid():
     )
 
 
-# ==========================================================
-# PIPELINE COMPLET — AUTO/SUGGESTION
-# ==========================================================
-
 def test_full_command_pipeline_suggestion():
 
     text = "AFFICHER STATISTIQ"
@@ -639,10 +534,6 @@ def test_full_command_pipeline_suggestion():
     )
 
 
-# ==========================================================
-# PIPELINE COMPLET — REFORMULATION
-# ==========================================================
-
 def test_full_command_pipeline_reformulate():
 
     text = "XYZ ABC"
@@ -657,10 +548,6 @@ def test_full_command_pipeline_reformulate():
 
     assert correction["success"] is False
 
-
-# ==========================================================
-# NUMÉRO DE QUESTION
-# ==========================================================
 
 @pytest.mark.parametrize(
     "text, numero",
@@ -682,10 +569,6 @@ def test_command_question_numero(text, numero):
     assert command.arguments["numero"] == numero
 
 
-# ==========================================================
-# CASSE INSENSIBLE
-# ==========================================================
-
 def test_command_case_insensitive():
 
     correction = CommandCorrector.correct(
@@ -698,10 +581,6 @@ def test_command_case_insensitive():
         "AFFICHER STATISTIQUES"
     )
 
-
-# ==========================================================
-# TRACE
-# ==========================================================
 
 def test_command_trace():
 

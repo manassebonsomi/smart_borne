@@ -9,10 +9,6 @@ from services.command_dispatcher import CommandDispatcher
 from services.command_handler import CommandHandler
 
 
-# ==========================================================
-# OUTILS
-# ==========================================================
-
 def build_command(text):
 
     tokens = Lexer.tokenize(text)
@@ -29,10 +25,6 @@ def parse_command(text):
         return_trace=True
     )
 
-
-# ==========================================================
-# ERREURS LEXICALES
-# ==========================================================
 
 def test_lexer_none():
 
@@ -87,11 +79,6 @@ def test_lexer_word_with_number():
         Lexer.tokenize(
             "QUESTION123"
         )
-
-
-# ==========================================================
-# CORRECTEUR
-# ==========================================================
 
 def test_corrector_empty():
 
@@ -173,10 +160,6 @@ def test_corrector_valid():
     assert result["success"] is True
 
 
-# ==========================================================
-# ERREURS SYNTAXIQUES
-# ==========================================================
-
 def test_parser_commande_incomplete():
 
     result = parse_command(
@@ -239,11 +222,6 @@ def test_parser_ajouter_incomplet():
 
     assert result["success"] is False
 
-
-# ==========================================================
-# BUILDER
-# ==========================================================
-
 def test_builder_tokens_vides():
 
     with pytest.raises(Exception):
@@ -270,10 +248,6 @@ def test_builder_commande_invalide():
 
     assert command is not None
 
-
-# ==========================================================
-# DISPATCHER
-# ==========================================================
 
 def test_dispatcher_none():
 
@@ -324,10 +298,6 @@ def test_dispatcher_resultat_structure():
     assert "action" in result
 
 
-# ==========================================================
-# HANDLER
-# ==========================================================
-
 def test_handler_commande_none():
 
     handler = CommandHandler()
@@ -367,10 +337,6 @@ def test_handler_resultat_structure():
 
     assert "success" in result
 
-
-# ==========================================================
-# HANDLER — DONNÉES MANQUANTES
-# ==========================================================
 
 def test_handler_ajouter_question_sans_donnees():
 
@@ -413,10 +379,6 @@ def test_handler_modifier_question_sans_donnees():
         "MODIFIER_QUESTION"
     )
 
-
-# ==========================================================
-# HANDLER — ERREURS DES CONTROLEURS
-# ==========================================================
 
 def test_handler_erreur_statistiques():
 
@@ -464,10 +426,6 @@ def test_handler_erreur_export():
     assert result["success"] is False
 
 
-# ==========================================================
-# HANDLER — ERREUR MODIFICATION
-# ==========================================================
-
 def test_handler_modifier_question_erreur():
 
     handler = CommandHandler()
@@ -498,10 +456,6 @@ def test_handler_modifier_question_erreur():
     assert result["success"] is False
 
 
-# ==========================================================
-# HANDLER — ERREUR SUPPRESSION
-# ==========================================================
-
 def test_handler_supprimer_question_erreur():
 
     handler = CommandHandler()
@@ -525,10 +479,6 @@ def test_handler_supprimer_question_erreur():
     assert result["success"] is False
 
 
-# ==========================================================
-# ERREUR LEXICALE — PIPELINE DIRECT
-# ==========================================================
-
 def test_pipeline_erreur_lexicale():
 
     text = "AFFICHER @"
@@ -537,10 +487,6 @@ def test_pipeline_erreur_lexicale():
 
         Lexer.tokenize(text)
 
-
-# ==========================================================
-# ERREUR SYNTAXIQUE — PIPELINE
-# ==========================================================
 
 def test_pipeline_erreur_syntaxique():
 
@@ -569,10 +515,6 @@ def test_pipeline_erreur_syntaxique():
     assert result["success"] is False
 
 
-# ==========================================================
-# TRACE ERREUR SYNTAXIQUE
-# ==========================================================
-
 def test_trace_erreur_syntaxique():
 
     result = parse_command(
@@ -588,10 +530,6 @@ def test_trace_erreur_syntaxique():
         list
     )
 
-
-# ==========================================================
-# TRACE ERREUR LEXICALE
-# ==========================================================
 
 def test_trace_erreur_lexicale():
 
@@ -612,10 +550,6 @@ def test_trace_erreur_lexicale():
     )
 
 
-# ==========================================================
-# STRUCTURE ERREUR DISPATCHER
-# ==========================================================
-
 def test_erreur_dispatcher_structure():
 
     result = CommandDispatcher.dispatch(
@@ -633,10 +567,6 @@ def test_erreur_dispatcher_structure():
 
     assert "action" in result
 
-
-# ==========================================================
-# STRUCTURE ERREUR HANDLER
-# ==========================================================
 
 def test_erreur_handler_structure():
 
@@ -656,15 +586,7 @@ def test_erreur_handler_structure():
     assert "success" in result
 
 
-# ==========================================================
-# PIPELINE COMPLET
-# ==========================================================
-
 def test_erreurs_pipeline_complet():
-
-    # ======================================================
-    # CAS VALIDE
-    # ======================================================
 
     correction = CommandCorrector.correct(
         "AFFICHER STATISTIQUES"
@@ -685,9 +607,6 @@ def test_erreurs_pipeline_complet():
 
     assert parser["success"] is True
 
-    # ======================================================
-    # CAS SUGGESTION
-    # ======================================================
 
     correction = CommandCorrector.correct(
         "AFFICHER STATISTIQ"
@@ -701,9 +620,6 @@ def test_erreurs_pipeline_complet():
         "AFFICHER STATISTIQUES"
     )
 
-    # ======================================================
-    # CAS ERREUR SYNTAXIQUE
-    # ======================================================
 
     correction = CommandCorrector.correct(
         "AFFICHER"
@@ -730,10 +646,6 @@ def test_erreurs_pipeline_complet():
     )
 
 
-# ==========================================================
-# COHÉRENCE CORRECTOR → LEXER
-# ==========================================================
-
 def test_corrector_vers_lexer():
 
     correction = CommandCorrector.correct(
@@ -748,18 +660,11 @@ def test_corrector_vers_lexer():
         "AFFICHER STATISTIQUES"
     )
 
-    # La suggestion est proposée.
-    # Elle n'est pas exécutée automatiquement
-    # par cette couche.
 
     assert correction["suggestion"] != (
         "AFFICHER STATISTIQ"
     )
 
-
-# ==========================================================
-# COHÉRENCE LEXER → PARSER
-# ==========================================================
 
 def test_lexer_vers_parser():
 
@@ -775,10 +680,6 @@ def test_lexer_vers_parser():
     assert result["success"] is False
 
 
-# ==========================================================
-# COHÉRENCE PARSER → BUILDER
-# ==========================================================
-
 def test_parser_echec_arrete_builder():
 
     tokens = Lexer.tokenize(
@@ -792,6 +693,4 @@ def test_parser_echec_arrete_builder():
 
     assert parser["success"] is False
 
-    # Le Builder ne doit pas être utilisé
-    # pour une commande syntaxiquement invalide.
     assert True

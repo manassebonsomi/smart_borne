@@ -4,10 +4,6 @@ from services.lexer import Lexer
 from services.ll1_parser import LL1Parser
 
 
-# ==========================================================
-# OUTIL
-# ==========================================================
-
 def parse(command):
 
     tokens = Lexer.tokenize(command)
@@ -17,10 +13,6 @@ def parse(command):
         return_trace=True
     )
 
-
-# ==========================================================
-# COMMANDES VALIDES
-# ==========================================================
 
 @pytest.mark.parametrize(
     "command",
@@ -47,10 +39,6 @@ def test_valid_commands(command):
     assert result["errors"] == []
 
 
-# ==========================================================
-# NUMERO
-# ==========================================================
-
 def test_modifier_question_numero():
 
     result = parse(
@@ -68,10 +56,6 @@ def test_supprimer_question_numero():
 
     assert result["success"] is True
 
-
-# ==========================================================
-# COMMANDE INCOMPLETE
-# ==========================================================
 
 def test_incomplete_afficher():
 
@@ -103,10 +87,6 @@ def test_incomplete_lancer():
     assert result["error"] == "SYNTAX_ERROR"
 
 
-# ==========================================================
-# ORDRE INCORRECT
-# ==========================================================
-
 def test_wrong_order():
 
     result = parse(
@@ -117,10 +97,6 @@ def test_wrong_order():
     assert result["error"] == "SYNTAX_ERROR"
 
 
-# ==========================================================
-# TOKEN INATTENDU
-# ==========================================================
-
 def test_unexpected_token():
 
     result = parse(
@@ -130,10 +106,6 @@ def test_unexpected_token():
     assert result["success"] is False
     assert result["error"] == "SYNTAX_ERROR"
 
-
-# ==========================================================
-# MAUVAIS NUMERO
-# ==========================================================
 
 def test_modifier_question_without_number():
 
@@ -148,11 +120,6 @@ def test_modifier_question_without_number():
 
     assert result["success"] is False
     assert result["error"] == "SYNTAX_ERROR"
-
-
-# ==========================================================
-# TRACE
-# ==========================================================
 
 def test_parser_trace():
 
@@ -171,11 +138,6 @@ def test_parser_trace():
         result["trace"]
     ) > 0
 
-
-# ==========================================================
-# EMPTY INPUT
-# ==========================================================
-
 def test_empty_tokens():
 
     result = LL1Parser.parse(
@@ -185,11 +147,6 @@ def test_empty_tokens():
 
     assert result["success"] is False
     assert result["error"] == "EMPTY_INPUT"
-
-
-# ==========================================================
-# CASE INSENSITIVE
-# ==========================================================
 
 def test_parser_case_insensitive():
 

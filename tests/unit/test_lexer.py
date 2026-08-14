@@ -4,10 +4,6 @@ from services.lexer import Lexer, LexerError
 from services.grammar import EOF
 
 
-# ==========================================================
-# TOKENISATION SIMPLE
-# ==========================================================
-
 def test_tokenize_afficher_statistiques():
 
     tokens = Lexer.tokenize(
@@ -18,10 +14,6 @@ def test_tokenize_afficher_statistiques():
     assert tokens[1].type == "STATISTIQUES"
     assert tokens[-1].type == EOF
 
-
-# ==========================================================
-# NUMERO
-# ==========================================================
 
 def test_tokenize_numero():
 
@@ -34,11 +26,6 @@ def test_tokenize_numero():
     assert tokens[2].type == "NUMERO"
     assert tokens[2].value == "25"
     assert tokens[-1].type == EOF
-
-
-# ==========================================================
-# COMMANDE COMPLEXE
-# ==========================================================
 
 def test_tokenize_lancer_enquete():
 
@@ -59,10 +46,6 @@ def test_tokenize_lancer_enquete():
     ]
 
 
-# ==========================================================
-# ESPACES
-# ==========================================================
-
 def test_tokenize_ignore_spaces():
 
     tokens = Lexer.tokenize(
@@ -81,10 +64,6 @@ def test_tokenize_ignore_spaces():
     ]
 
 
-# ==========================================================
-# CASE INSENSITIVE
-# ==========================================================
-
 def test_tokenize_case_insensitive():
 
     tokens = Lexer.tokenize(
@@ -95,10 +74,6 @@ def test_tokenize_case_insensitive():
     assert tokens[1].type == "STATISTIQUES"
 
 
-# ==========================================================
-# ENTREE VIDE
-# ==========================================================
-
 def test_tokenize_empty():
 
     tokens = Lexer.tokenize("")
@@ -107,20 +82,12 @@ def test_tokenize_empty():
     assert tokens[0].type == EOF
 
 
-# ==========================================================
-# ENTREE NONE
-# ==========================================================
-
 def test_tokenize_none():
 
     with pytest.raises(LexerError):
 
         Lexer.tokenize(None)
 
-
-# ==========================================================
-# MOT INCONNU
-# ==========================================================
 
 def test_unknown_word():
 
@@ -131,10 +98,6 @@ def test_unknown_word():
         )
 
 
-# ==========================================================
-# CARACTERE INVALIDE
-# ==========================================================
-
 def test_invalid_character():
 
     with pytest.raises(LexerError):
@@ -143,10 +106,6 @@ def test_invalid_character():
             "AFFICHER @"
         )
 
-
-# ==========================================================
-# MOT AVEC NUMERO
-# ==========================================================
 
 def test_word_with_number():
 

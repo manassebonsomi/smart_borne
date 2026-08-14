@@ -5,10 +5,6 @@ from app import app
 from config.database import db
 
 
-# ==========================================================
-# FIXTURE APPLICATION
-# ==========================================================
-
 @pytest.fixture
 def client():
 
@@ -18,10 +14,6 @@ def client():
 
         yield app.test_client()
 
-
-# ==========================================================
-# OUTIL
-# ==========================================================
 
 def execute_command(client, command, data=None):
 
@@ -37,10 +29,6 @@ def execute_command(client, command, data=None):
         json=payload
     )
 
-
-# ==========================================================
-# COMMANDE VALIDE
-# ==========================================================
 
 def test_integration_commande_valide(client):
 
@@ -64,10 +52,6 @@ def test_integration_commande_valide(client):
     assert "success" in result
 
 
-# ==========================================================
-# SUGGESTION
-# ==========================================================
-
 def test_integration_suggestion(client):
 
     response = execute_command(
@@ -87,10 +71,6 @@ def test_integration_suggestion(client):
 
     assert result["requires_confirmation"] is True
 
-
-# ==========================================================
-# ERREUR LEXICALE
-# ==========================================================
 
 def test_integration_erreur_lexicale(client):
 
@@ -133,10 +113,6 @@ def test_integration_erreur_lexicale(client):
         )
 
 
-# ==========================================================
-# ERREUR SYNTAXIQUE
-# ==========================================================
-
 def test_integration_erreur_syntaxique(client):
 
     response = execute_command(
@@ -165,10 +141,6 @@ def test_integration_erreur_syntaxique(client):
     assert "error" in result
 
 
-# ==========================================================
-# COMMANDE MODIFIER QUESTION
-# ==========================================================
-
 def test_integration_modifier_question(client):
 
     response = execute_command(
@@ -191,10 +163,6 @@ def test_integration_modifier_question(client):
     assert "success" in result
 
 
-# ==========================================================
-# COMMANDE SUPPRIMER QUESTION
-# ==========================================================
-
 def test_integration_supprimer_question(client):
 
     response = execute_command(
@@ -216,10 +184,6 @@ def test_integration_supprimer_question(client):
 
     assert "success" in result
 
-
-# ==========================================================
-# COMMANDE EXPORTER RAPPORT
-# ==========================================================
 
 def test_integration_exporter_rapport(client):
 
@@ -251,10 +215,6 @@ def test_integration_exporter_rapport(client):
     assert "success" in result
 
 
-# ==========================================================
-# COMMANDE RECOMMENCER SESSION
-# ==========================================================
-
 def test_integration_recommencer_session(client):
 
     response = execute_command(
@@ -276,10 +236,6 @@ def test_integration_recommencer_session(client):
 
     assert "success" in result
 
-
-# ==========================================================
-# COMMANDE QUITTER
-# ==========================================================
 
 def test_integration_quitter(client):
 
@@ -303,10 +259,6 @@ def test_integration_quitter(client):
     assert "success" in result
 
 
-# ==========================================================
-# COMMANDE VIDE
-# ==========================================================
-
 def test_integration_commande_vide(client):
 
     response = execute_command(
@@ -329,9 +281,6 @@ def test_integration_commande_vide(client):
     assert result["success"] is False
 
 
-# ==========================================================
-# JSON ABSENT
-# ==========================================================
 
 def test_integration_json_absent(client):
 
@@ -351,10 +300,6 @@ def test_integration_json_absent(client):
     assert result["success"] is False
 
 
-# ==========================================================
-# COMMAND ABSENTE
-# ==========================================================
-
 def test_integration_command_absente(client):
 
     response = client.post(
@@ -373,10 +318,6 @@ def test_integration_command_absente(client):
 
     assert result["success"] is False
 
-
-# ==========================================================
-# TYPE DE COMMAND INVALIDE
-# ==========================================================
 
 @pytest.mark.parametrize(
     "command",
@@ -409,10 +350,6 @@ def test_integration_command_type_invalide(
     assert result["success"] is False
 
 
-# ==========================================================
-# TRACE DU PIPELINE
-# ==========================================================
-
 def test_integration_trace(client):
 
     response = execute_command(
@@ -434,10 +371,6 @@ def test_integration_trace(client):
             list
         )
 
-
-# ==========================================================
-# STRUCTURE RÉPONSE
-# ==========================================================
 
 def test_integration_structure_reponse(client):
 

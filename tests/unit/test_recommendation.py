@@ -1,13 +1,7 @@
-# tests/unit/test_recommendation.py
-
 import pytest
 
 from services.recommendation_engine import RecommendationEngine
 
-
-# ==========================================================
-# OUTIL
-# ==========================================================
 
 def generate(age, niveau_scolaire, reponses):
     return RecommendationEngine.generate(
@@ -16,10 +10,6 @@ def generate(age, niveau_scolaire, reponses):
         reponses
     )
 
-
-# ==========================================================
-# STRUCTURE DU RÉSULTAT
-# ==========================================================
 
 def test_resultat_structure():
 
@@ -49,10 +39,6 @@ def test_resultat_structure():
     )
 
 
-# ==========================================================
-# LES 5 PARCOURS DOIVENT ÊTRE PRÉSENTS
-# ==========================================================
-
 def test_cinq_parcours():
 
     result = generate(
@@ -75,10 +61,6 @@ def test_cinq_parcours():
 
         assert parcours_name in scores
 
-
-# ==========================================================
-# RÈGLES D'ÂGE
-# ==========================================================
 
 @pytest.mark.parametrize(
     "age, parcours_attendu",
@@ -108,11 +90,6 @@ def test_regle_age(age, parcours_attendu):
         parcours_attendu
     )
 
-
-# ==========================================================
-# ÂGE — POIDS +40
-# ==========================================================
-
 @pytest.mark.parametrize(
     "age, parcours_attendu",
     [
@@ -138,10 +115,6 @@ def test_score_age(age, parcours_attendu):
     )
 
 
-# ==========================================================
-# NIVEAU SCOLAIRE — DÉCOUVERTE
-# ==========================================================
-
 @pytest.mark.parametrize(
     "niveau",
     [
@@ -164,10 +137,6 @@ def test_niveau_decouverte(niveau):
         20
     )
 
-
-# ==========================================================
-# NIVEAU SCOLAIRE — SCRATCH JUNIOR
-# ==========================================================
 
 @pytest.mark.parametrize(
     "niveau",
@@ -192,10 +161,6 @@ def test_niveau_scratch_junior(niveau):
     )
 
 
-# ==========================================================
-# NIVEAU SCOLAIRE — SCRATCH AVANCÉ
-# ==========================================================
-
 @pytest.mark.parametrize(
     "niveau",
     [
@@ -217,10 +182,6 @@ def test_niveau_scratch_avance(niveau):
         20
     )
 
-
-# ==========================================================
-# NIVEAU SCOLAIRE — PYTHON
-# ==========================================================
 
 @pytest.mark.parametrize(
     "niveau",
@@ -244,9 +205,6 @@ def test_niveau_python(niveau):
     )
 
 
-# ==========================================================
-# NIVEAU SCOLAIRE — MENTOR
-# ==========================================================
 
 def test_niveau_mentor():
 
@@ -262,10 +220,6 @@ def test_niveau_mentor():
         20
     )
 
-
-# ==========================================================
-# MOT-CLÉ : JEU
-# ==========================================================
 
 def test_reponse_jeu():
 
@@ -290,10 +244,6 @@ def test_reponse_jeu():
     )
 
 
-# ==========================================================
-# MOT-CLÉ : ANIMATION
-# ==========================================================
-
 def test_reponse_animation():
 
     result = generate(
@@ -317,10 +267,6 @@ def test_reponse_animation():
     )
 
 
-# ==========================================================
-# MOT-CLÉ : PROGRAMMER
-# ==========================================================
-
 def test_reponse_programmer():
 
     result = generate(
@@ -337,10 +283,6 @@ def test_reponse_programmer():
         20
     )
 
-
-# ==========================================================
-# MOT-CLÉ : PROBLÈME
-# ==========================================================
 
 def test_reponse_probleme():
 
@@ -365,10 +307,6 @@ def test_reponse_probleme():
     )
 
 
-# ==========================================================
-# MOT-CLÉ : ENSEIGNER
-# ==========================================================
-
 def test_reponse_enseigner():
 
     result = generate(
@@ -386,10 +324,6 @@ def test_reponse_enseigner():
     )
 
 
-# ==========================================================
-# MOT-CLÉ : CRÉER
-# ==========================================================
-
 def test_reponse_creer():
 
     result = generate(
@@ -406,10 +340,6 @@ def test_reponse_creer():
         15
     )
 
-
-# ==========================================================
-# COMBINAISON ÂGE + NIVEAU + RÉPONSES
-# ==========================================================
 
 def test_combinaison_complete():
 
@@ -434,10 +364,6 @@ def test_combinaison_complete():
     )
 
 
-# ==========================================================
-# SCORE FINAL
-# ==========================================================
-
 def test_score_final():
 
     result = generate(
@@ -454,10 +380,6 @@ def test_score_final():
         result["scores"][result["parcours"]]
     )
 
-
-# ==========================================================
-# RÉPONSES VIDES
-# ==========================================================
 
 def test_reponses_vides():
 
@@ -481,10 +403,6 @@ def test_reponses_vides():
     )
 
 
-# ==========================================================
-# UNE SEULE RÉPONSE
-# ==========================================================
-
 def test_une_reponse():
 
     result = generate(
@@ -499,10 +417,6 @@ def test_une_reponse():
         "Python Débutant"
     )
 
-
-# ==========================================================
-# PLUSIEURS RÉPONSES
-# ==========================================================
 
 def test_plusieurs_reponses():
 
@@ -533,10 +447,6 @@ def test_plusieurs_reponses():
     )
 
 
-# ==========================================================
-# STABILITÉ
-# ==========================================================
-
 def test_recommandation_stable():
 
     arguments = (
@@ -554,10 +464,6 @@ def test_recommandation_stable():
     assert result1 == result2
 
 
-# ==========================================================
-# TYPE DU PARCOURS
-# ==========================================================
-
 def test_parcours_string():
 
     result = generate(
@@ -571,10 +477,6 @@ def test_parcours_string():
         str
     )
 
-
-# ==========================================================
-# SCORES NUMÉRIQUES
-# ==========================================================
 
 def test_scores_numeriques():
 
