@@ -1,13 +1,7 @@
-# test_command_controller.py
-
 from unittest.mock import patch, MagicMock
 
 from controllers.command_controller import CommandController
 
-
-# ==========================================================
-# OUTIL : COMMANDE VALIDE
-# ==========================================================
 
 def test_valid():
 
@@ -68,10 +62,6 @@ def test_valid():
         "PASS : CONTROLLER VALID"
     )
 
-
-# ==========================================================
-# AUTO CORRECT
-# ==========================================================
 
 def test_auto_correct():
 
@@ -138,10 +128,6 @@ def test_auto_correct():
     )
 
 
-# ==========================================================
-# SUGGEST
-# ==========================================================
-
 def test_suggest():
 
     with patch(
@@ -178,12 +164,7 @@ def test_suggest():
         result["suggestion"]
     )
 
-    # ------------------------------------------------------
-    # Très important :
-    # aucune action métier ne doit être exécutée.
-    # La commande ne doit pas encore être enregistrée
-    # comme exécutée.
-    # ------------------------------------------------------
+
 
     mock_commande.assert_not_called()
 
@@ -195,10 +176,6 @@ def test_suggest():
         "PASS : CONTROLLER SUGGEST"
     )
 
-
-# ==========================================================
-# REFORMULATE
-# ==========================================================
 
 def test_reformulate():
 
@@ -238,10 +215,6 @@ def test_reformulate():
         "PASS : CONTROLLER REFORMULATE"
     )
 
-
-# ==========================================================
-# MODIFIER QUESTION
-# ==========================================================
 
 def test_modifier_question():
 
@@ -317,10 +290,6 @@ def test_modifier_question():
     )
 
 
-# ==========================================================
-# SUPPRIMER QUESTION
-# ==========================================================
-
 def test_supprimer_question():
 
     with patch(
@@ -382,10 +351,6 @@ def test_supprimer_question():
     )
 
 
-# ==========================================================
-# EXPORTER RAPPORT
-# ==========================================================
-
 def test_exporter_rapport():
 
     with patch(
@@ -441,11 +406,6 @@ def test_exporter_rapport():
         "PASS : CONTROLLER EXPORTER RAPPORT"
     )
 
-
-# ==========================================================
-# LANCER ENQUÊTE
-# ==========================================================
-
 def test_lancer_enquete():
 
     with patch(
@@ -492,10 +452,6 @@ def test_lancer_enquete():
     print(
         "PASS : CONTROLLER LANCER ENQUETE"
     )
-
-# ==========================================================
-# ERREUR LEXICALE
-# ==========================================================
 
 def test_lexical_error():
 
@@ -567,9 +523,6 @@ def test_lexical_error():
         "PASS : CONTROLLER LEXICAL ERROR"
     )
 
-# ==========================================================
-# COMMANDE VIDE
-# ==========================================================
 
 def test_empty_command():
 
@@ -592,10 +545,6 @@ def test_empty_command():
         "PASS : CONTROLLER EMPTY"
     )
 
-
-# ==========================================================
-# EXÉCUTION
-# ==========================================================
 
 if __name__ == "__main__":
 

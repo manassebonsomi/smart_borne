@@ -1,13 +1,7 @@
-# test_parser_complet.py
-
 from services.lexer import Lexer
 from services.ll1_parser import LL1Parser
 from services.ll1_table import LL1Table
 
-
-# ==========================================================
-# OUTILS
-# ==========================================================
 
 tests_total = 0
 tests_passed = 0
@@ -80,10 +74,6 @@ def lex_and_parse(command):
     return tokens, result
 
 
-# ==========================================================
-# 1. TABLE LL(1)
-# ==========================================================
-
 def test_ll1_table():
 
     print()
@@ -99,10 +89,6 @@ def test_ll1_table():
         validation
     )
 
-
-# ==========================================================
-# 2. COMMANDES VALIDES
-# ==========================================================
 
 def test_valid_commands():
 
@@ -173,10 +159,6 @@ def test_valid_commands():
     )
 
 
-# ==========================================================
-# 3. COMMANDES INVALIDES
-# ==========================================================
-
 def test_invalid_commands():
 
     print()
@@ -240,10 +222,6 @@ def test_invalid_commands():
     )
 
 
-# ==========================================================
-# 4. ERREURS LEXICALES
-# ==========================================================
-
 def test_lexical_errors():
 
     print()
@@ -294,10 +272,6 @@ def test_lexical_errors():
         f"{passed}/{len(commands)}"
     )
 
-
-# ==========================================================
-# 5. EOF INATTENDU
-# ==========================================================
 
 def test_unexpected_eof():
 
@@ -352,10 +326,6 @@ def test_unexpected_eof():
     )
 
 
-# ==========================================================
-# 6. NUMERO INVALIDE
-# ==========================================================
-
 def test_invalid_numero():
 
     print()
@@ -404,10 +374,6 @@ def test_invalid_numero():
         f"{passed}/{len(invalid_numbers)}"
     )
 
-
-# ==========================================================
-# 7. RÉCUPÉRATION D'ERREUR LL(1)
-# ==========================================================
 
 def test_error_recovery():
 
@@ -475,10 +441,6 @@ def test_error_recovery():
         f"{passed}/{len(commands)}"
     )
 
-
-# ==========================================================
-# 8. ERREURS SYNTAXIQUES
-# ==========================================================
 
 def test_syntax_errors():
 
@@ -550,10 +512,6 @@ def test_syntax_errors():
     )
 
 
-# ==========================================================
-# 9. TEST D'ENTRÉE RESTANTE
-# ==========================================================
-
 def test_unexpected_input():
 
     print()
@@ -607,10 +565,6 @@ def test_unexpected_input():
     )
 
 
-# ==========================================================
-# 10. EXÉCUTION
-# ==========================================================
-
 def main():
 
     print()
@@ -636,9 +590,6 @@ def main():
 
     test_unexpected_input()
 
-    # ------------------------------------------------------
-    # RÉSUMÉ
-    # ------------------------------------------------------
 
     print()
     print("=" * 70)

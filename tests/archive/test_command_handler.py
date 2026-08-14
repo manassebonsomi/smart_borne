@@ -1,13 +1,7 @@
-# test_command_handler.py
-
 from unittest.mock import patch, MagicMock
 
 from services.command_handler import CommandHandler
 
-
-# ==========================================================
-# OUTILS
-# ==========================================================
 
 def build_handler_command(
     action,
@@ -27,10 +21,6 @@ def build_handler_command(
         "arguments": arguments or {}
     }
 
-
-# ==========================================================
-# AFFICHER STATISTIQUES
-# ==========================================================
 
 def test_afficher_statistiques():
 
@@ -73,10 +63,6 @@ def test_afficher_statistiques():
         "PASS : AFFICHER STATISTIQUES"
     )
 
-
-# ==========================================================
-# AFFICHER ERREURS
-# ==========================================================
 
 def test_afficher_erreurs():
 
@@ -125,10 +111,6 @@ def test_afficher_erreurs():
     )
 
 
-# ==========================================================
-# ENQUÊTE CYBERSÉCURITÉ
-# ==========================================================
-
 def test_enquete_cybersecurite():
 
     handler = CommandHandler()
@@ -159,10 +141,6 @@ def test_enquete_cybersecurite():
         "PASS : ENQUETE CYBERSECURITE"
     )
 
-
-# ==========================================================
-# CAMPAGNE ECOLE
-# ==========================================================
 
 def test_campagne_ecole():
 
@@ -212,10 +190,6 @@ def test_campagne_ecole():
     )
 
 
-# ==========================================================
-# RECHERCHE ENFANTS
-# ==========================================================
-
 def test_recherche_enfants():
 
     handler = CommandHandler()
@@ -262,10 +236,6 @@ def test_recherche_enfants():
         "PASS : RECHERCHE ENFANTS"
     )
 
-
-# ==========================================================
-# RECHERCHE ADOLESCENTS PYTHON
-# ==========================================================
 
 def test_recherche_adolescents():
 
@@ -314,10 +284,6 @@ def test_recherche_adolescents():
     )
 
 
-# ==========================================================
-# AJOUTER QUESTION - SANS DONNÉES
-# ==========================================================
-
 def test_ajouter_question_sans_donnees():
 
     handler = CommandHandler()
@@ -357,10 +323,6 @@ def test_ajouter_question_sans_donnees():
         "PASS : AJOUTER QUESTION SANS DONNEES"
     )
 
-
-# ==========================================================
-# AJOUTER QUESTION
-# ==========================================================
 
 def test_ajouter_question():
 
@@ -415,10 +377,6 @@ def test_ajouter_question():
     )
 
 
-# ==========================================================
-# MODIFIER QUESTION - SANS DONNÉES
-# ==========================================================
-
 def test_modifier_question_sans_donnees():
 
     handler = CommandHandler()
@@ -465,10 +423,6 @@ def test_modifier_question_sans_donnees():
         "PASS : MODIFIER QUESTION SANS DONNEES"
     )
 
-
-# ==========================================================
-# MODIFIER QUESTION
-# ==========================================================
 
 def test_modifier_question():
 
@@ -527,10 +481,6 @@ def test_modifier_question():
     )
 
 
-# ==========================================================
-# SUPPRIMER QUESTION
-# ==========================================================
-
 def test_supprimer_question():
 
     handler = CommandHandler()
@@ -574,10 +524,6 @@ def test_supprimer_question():
     )
 
 
-# ==========================================================
-# EXPORTER RAPPORT
-# ==========================================================
-
 def test_exporter_rapport():
 
     handler = CommandHandler()
@@ -618,10 +564,6 @@ def test_exporter_rapport():
         "PASS : EXPORTER RAPPORT"
     )
 
-
-# ==========================================================
-# RECOMMENCER SESSION
-# ==========================================================
 
 def test_recommencer_session():
 
@@ -667,10 +609,6 @@ def test_recommencer_session():
     )
 
 
-# ==========================================================
-# QUITTER
-# ==========================================================
-
 def test_quitter():
 
     handler = CommandHandler()
@@ -715,10 +653,6 @@ def test_quitter():
     )
 
 
-# ==========================================================
-# ACTION INCONNUE
-# ==========================================================
-
 def test_action_inconnue():
 
     handler = CommandHandler()
@@ -737,9 +671,6 @@ def test_action_inconnue():
     )
 
 
-# ==========================================================
-# EXÉCUTION
-# ==========================================================
 
 if __name__ == "__main__":
 

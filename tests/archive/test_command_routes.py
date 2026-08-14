@@ -1,12 +1,5 @@
-# test_command_routes.py
-
 from unittest.mock import patch
 from app import app
-
-
-# ==========================================================
-# CONFIGURATION DU CLIENT
-# ==========================================================
 
 def get_client():
 
@@ -14,10 +7,6 @@ def get_client():
 
     return app.test_client()
 
-
-# ==========================================================
-# VALID
-# ==========================================================
 
 def test_valid():
 
@@ -80,10 +69,6 @@ def test_valid():
         "PASS : ROUTE VALID"
     )
 
-
-# ==========================================================
-# AUTO CORRECT
-# ==========================================================
 
 def test_auto_correct():
 
@@ -152,10 +137,6 @@ def test_auto_correct():
     )
 
 
-# ==========================================================
-# SUGGEST
-# ==========================================================
-
 def test_suggest():
 
     client = get_client()
@@ -221,10 +202,6 @@ def test_suggest():
     )
 
 
-# ==========================================================
-# REFORMULATE
-# ==========================================================
-
 def test_reformulate():
 
     client = get_client()
@@ -280,11 +257,6 @@ def test_reformulate():
     print(
         "PASS : ROUTE REFORMULATE"
     )
-
-
-# ==========================================================
-# MODIFIER QUESTION
-# ==========================================================
 
 def test_modifier_question():
 
@@ -349,10 +321,6 @@ def test_modifier_question():
     )
 
 
-# ==========================================================
-# SUPPRIMER QUESTION
-# ==========================================================
-
 def test_supprimer_question():
 
     client = get_client()
@@ -416,10 +384,6 @@ def test_supprimer_question():
     )
 
 
-# ==========================================================
-# CHAMP COMMAND MANQUANT
-# ==========================================================
-
 def test_missing_command():
 
     client = get_client()
@@ -448,10 +412,6 @@ def test_missing_command():
         "PASS : ROUTE COMMAND MANQUANTE"
     )
 
-
-# ==========================================================
-# JSON ABSENT
-# ==========================================================
 
 def test_missing_json():
 
@@ -511,10 +471,6 @@ def test_invalid_command_type():
         "PASS : ROUTE COMMAND TYPE INVALIDE"
     )
 
-
-# ==========================================================
-# EXÉCUTION
-# ==========================================================
 
 if __name__ == "__main__":
 

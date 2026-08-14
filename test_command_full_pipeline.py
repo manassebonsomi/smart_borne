@@ -1,5 +1,3 @@
-# test_command_full_pipeline.py
-
 from unittest.mock import patch, MagicMock
 
 from services.command_corrector import CommandCorrector
@@ -9,9 +7,6 @@ from services.command_builder import CommandBuilder
 from services.command_dispatcher import CommandDispatcher
 
 
-# ==========================================================
-# PIPELINE COMPLET
-# ==========================================================
 
 def execute_pipeline(command_text, data=None):
     """
@@ -53,10 +48,6 @@ def execute_pipeline(command_text, data=None):
             "result": None
         }
 
-    # ------------------------------------------------------
-    # COMMANDE À UTILISER
-    # ------------------------------------------------------
-
     corrected_command = correction.get(
         "corrected"
     )
@@ -69,17 +60,10 @@ def execute_pipeline(command_text, data=None):
             "result": None
         }
 
-    # ------------------------------------------------------
-    # 2. LEXER
-    # ------------------------------------------------------
-
     tokens = Lexer.tokenize(
         corrected_command
     )
 
-    # ------------------------------------------------------
-    # 3. PARSER LL(1)
-    # ------------------------------------------------------
 
     parsed = LL1Parser.parse(
         tokens,
@@ -96,17 +80,10 @@ def execute_pipeline(command_text, data=None):
             "result": None
         }
 
-    # ------------------------------------------------------
-    # 4. COMMAND BUILDER
-    # ------------------------------------------------------
 
     command = CommandBuilder.build(
         tokens
     )
-
-    # ------------------------------------------------------
-    # 5. DISPATCHER
-    # ------------------------------------------------------
 
     result = CommandDispatcher.dispatch(
         command,
@@ -122,10 +99,6 @@ def execute_pipeline(command_text, data=None):
         "result": result
     }
 
-
-# ==========================================================
-# VALID
-# ==========================================================
 
 def test_valid_command():
 
@@ -187,10 +160,6 @@ def test_valid_command():
         "PARSER → BUILDER → DISPATCHER → HANDLER"
     )
 
-
-# ==========================================================
-# AUTO CORRECT
-# ==========================================================
 
 def test_auto_correct():
 
@@ -254,10 +223,6 @@ def test_auto_correct():
     )
 
 
-# ==========================================================
-# SUGGEST
-# ==========================================================
-
 def test_suggest_stops_pipeline():
 
     result = execute_pipeline(
@@ -289,10 +254,6 @@ def test_suggest_stops_pipeline():
     )
 
 
-# ==========================================================
-# REFORMULATE
-# ==========================================================
-
 def test_reformulate_stops_pipeline():
 
     result = execute_pipeline(
@@ -318,10 +279,6 @@ def test_reformulate_stops_pipeline():
         "ARRÊT AVANT LEXER"
     )
 
-
-# ==========================================================
-# LANCER ENQUETE CYBERSECURITE
-# ==========================================================
 
 def test_lancer_enquete():
 
@@ -379,10 +336,6 @@ def test_lancer_enquete():
         "PASS : LANCER ENQUETE CYBERSECURITE"
     )
 
-
-# ==========================================================
-# MODIFIER QUESTION
-# ==========================================================
 
 def test_modifier_question():
 
@@ -462,10 +415,6 @@ def test_modifier_question():
     )
 
 
-# ==========================================================
-# SUPPRIMER QUESTION
-# ==========================================================
-
 def test_supprimer_question():
 
     with patch(
@@ -532,10 +481,6 @@ def test_supprimer_question():
     )
 
 
-# ==========================================================
-# EXPORTER RAPPORT
-# ==========================================================
-
 def test_exporter_rapport():
 
     with patch(
@@ -596,10 +541,6 @@ def test_exporter_rapport():
         "PASS : EXPORTER RAPPORT"
     )
 
-
-# ==========================================================
-# RECOMMENCER SESSION
-# ==========================================================
 
 def test_recommencer_session():
 
@@ -664,10 +605,6 @@ def test_recommencer_session():
     )
 
 
-# ==========================================================
-# QUITTER
-# ==========================================================
-
 def test_quitter():
 
     session = MagicMock()
@@ -730,10 +667,6 @@ def test_quitter():
     )
 
 
-# ==========================================================
-# TRACE COMPLÈTE
-# ==========================================================
-
 def test_trace_complete():
 
     with patch(
@@ -749,9 +682,6 @@ def test_trace_complete():
             "AFFICHER STATISTIQUES"
         )
 
-    # ------------------------------------------------------
-    # CORRECTOR
-    # ------------------------------------------------------
 
     assert (
         "trace"
@@ -766,9 +696,6 @@ def test_trace_complete():
         > 0
     )
 
-    # ------------------------------------------------------
-    # PARSER
-    # ------------------------------------------------------
 
     assert (
         "trace"
@@ -783,17 +710,11 @@ def test_trace_complete():
         > 0
     )
 
-    # ------------------------------------------------------
-    # BUILDER
-    # ------------------------------------------------------
 
     assert result["command"].raw == (
         "AFFICHER STATISTIQUES"
     )
 
-    # ------------------------------------------------------
-    # DISPATCHER / HANDLER
-    # ------------------------------------------------------
 
     assert (
         result["result"]["action"]
@@ -810,10 +731,6 @@ def test_trace_complete():
         "PASS : TRACE COMPLÈTE"
     )
 
-
-# ==========================================================
-# EXÉCUTION
-# ==========================================================
 
 if __name__ == "__main__":
 

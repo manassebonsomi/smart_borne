@@ -1,10 +1,6 @@
 from services.command_pipeline import CommandPipeline
 
 
-# ==========================================================
-# VALID
-# ==========================================================
-
 def test_valid_command():
 
     result = CommandPipeline.execute(
@@ -39,11 +35,6 @@ def test_valid_command():
     print(
         "PASS : VALID → LEXER → PARSER"
     )
-
-
-# ==========================================================
-# AUTO CORRECT
-# ==========================================================
 
 def test_auto_correct_command():
 
@@ -82,10 +73,6 @@ def test_auto_correct_command():
     )
 
 
-# ==========================================================
-# SUGGEST
-# ==========================================================
-
 def test_suggest_stops_before_parser():
 
     result = CommandPipeline.execute(
@@ -117,10 +104,6 @@ def test_suggest_stops_before_parser():
     )
 
 
-# ==========================================================
-# REFORMULATE
-# ==========================================================
-
 def test_reformulate_stops():
 
     result = CommandPipeline.execute(
@@ -147,10 +130,6 @@ def test_reformulate_stops():
     )
 
 
-# ==========================================================
-# AUTRE COMMANDE VALIDE
-# ==========================================================
-
 def test_lancer_command():
 
     result = CommandPipeline.execute(
@@ -171,10 +150,6 @@ def test_lancer_command():
         "CYBERSECURITE"
     )
 
-
-# ==========================================================
-# NUMERO
-# ==========================================================
 
 def test_modifier_question():
 
@@ -202,10 +177,6 @@ def test_modifier_question():
         "PASS : NUMERO → LEXER → PARSER"
     )
 
-
-# ==========================================================
-# TRACE
-# ==========================================================
 
 def test_full_trace():
 
@@ -249,10 +220,6 @@ def test_full_trace():
         "PASS : TRACE COMPLÈTE"
     )
 
-
-# ==========================================================
-# EXÉCUTION
-# ==========================================================
 
 if __name__ == "__main__":
 

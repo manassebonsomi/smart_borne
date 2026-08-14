@@ -1,11 +1,5 @@
-# test_command_suggester.py
-
 from services.command_suggester import CommandSuggester
 
-
-# ==========================================================
-# OUTILS DE TEST
-# ==========================================================
 
 def test_auto_correct():
     """
@@ -151,10 +145,6 @@ def test_trace():
         "PASS : TRACE"
     )
 
-
-# ==========================================================
-# EXÉCUTION
-# ==========================================================
 
 if __name__ == "__main__":
 
